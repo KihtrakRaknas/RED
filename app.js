@@ -1,8 +1,8 @@
 var url = "www.google.com";
-Document.onload = function (){
-Document.getElementById("url").innerHTML = url;
-Document.getElementById("url").href = url;
-Document.getElementById("websiteURL").href = url;
-Document.getElementById("websiteURL").innerHTML = url;
+document.onload = function(){
+document.getElementById("url").innerHTML = url;
+document.getElementById("url").href = url;
+document.getElementById("websiteURL").href = url;
+document.getElementById("websiteURL").innerHTML = url;
 }
-//window.location.replace(url);
+window.location.replace(url);
