@@ -1,4 +1,4 @@
-var url = "google.com";
+var url = "www.google.com";
 document.onload = function (){
 document.getElementbyId("url").innerHTML = url;
 document.getElementbyId("url").href = url;
