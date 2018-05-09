@@ -5,4 +5,4 @@ document.getElementById("url").href = url;
 document.getElementById("websiteURL").href = url;
 document.getElementById("websiteURL").innerHTML = url;
 }
-window.location.replace(url);
+//window.location.replace(url);
