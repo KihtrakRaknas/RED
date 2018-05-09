@@ -1,5 +1,5 @@
 console.log("TEST");
-var url = "http://bing.com";
+var url = "bing.com";
 var urlEle = document.getElementById("url");
 var websiteUrlEle = document.getElementById("weburls");
 var failedUrl = document.getElementById("failedUrl");
@@ -16,4 +16,4 @@ $(document).ready(function() {
         failedUrl.innerHTML = url;
     }
 });
-//window.location.replace(url);
+window.location.replace(url);
