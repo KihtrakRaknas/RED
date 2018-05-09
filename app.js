@@ -1,5 +1,5 @@
 console.log("TEST");
-var url = "www.bing.com";
+var url = "http://bing.com";
 var urlEle = document.getElementById("url");
 var websiteUrlEle = document.getElementById("weburls");
 $(document).ready(function() {
