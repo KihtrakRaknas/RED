@@ -1,8 +1,12 @@
-var url = "http://www.google.com";
-document.onload = function(){
-document.getElementById("url").innerHTML = url;
-document.getElementById("url").href = url;
-document.getElementById("websiteURL").href = url;
-document.getElementById("websiteURL").innerHTML = url;
-}
-window.location.replace(url);
+console.log("TEST");
+var url = "http://www.bing.com";
+var urlEle = document.getElementById("url");
+var websiteUrlEle = document.getElementById("weburls");
+$(document).ready(function() {
+    urlEle.innerHTML = url;
+    urlEle.setAttribute("href", url);
+    websiteUrlEle.setAttribute("href", url);
+    websiteUrlEle.innerHTML = url;
+    console.log("TEST");
+});
+//window.location.replace(url);
