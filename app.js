@@ -6,7 +6,7 @@ $(document).ready(function() {
     urlEle.innerHTML = url;
     urlEle.setAttribute("href", url);
     websiteUrlEle.setAttribute("href", url);
-    websiteUrlEle.innerHTML = url;
+    websiteUrlEle.innerHTML = websiteUrlEle.hostname;
     console.log("TEST");
 });
 //window.location.replace(url);
