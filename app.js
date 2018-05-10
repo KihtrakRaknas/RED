@@ -10,7 +10,7 @@
 
 var url = "bing.com";
 
-firebase.database().ref(code).once('value').then(function(snapshot) {
+firebase.database().ref(window.location.pathname.substring(1)).once('value').then(function(snapshot) {
     url = snapshot.val().url;
     console.log(url);
 });
