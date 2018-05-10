@@ -14,12 +14,11 @@ console.log(window.location.pathname.substring(window.location.pathname.lastInde
 firebase.database().ref(window.location.pathname.substring(window.location.pathname.lastIndexOf("/")+1)).once('value').then(function(snapshot) {
     //if(snapshot.val().url!=null&&(url.substring(0,7)=="http://"||url.substring(0,8)=="https://"))
     url = snapshot.val().url;
-    var testURL = new URL(url).then(function(){
-        console.log("IT WORKED");
-    }).catch(function(error) {
+    try {
+        var testURL = new URL(url)
+    }catch(error){
         console.log(error);
-        testURL=null;
-    });
+    };
     console.log(url);
     console.log(testURL);
 });
