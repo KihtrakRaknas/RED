@@ -11,11 +11,9 @@
 var url = "bing.com";
 console.log(window.location.pathname);
 console.log(window.location.pathname.substring(window.location.pathname.lastIndexOf("/")+1));
-firebase.database().ref(window.location.pathname.substring(window.location.pathname.lastIndexOf("/")+1)).once('value').then(function(snapshot) {
-    //if(snapshot.val().url!=null&&(url.substring(0,7)=="http://"||url.substring(0,8)=="https://"))
-    snapshot.val().url;
+firebase.database().ref(window.location.pathname.substring(window.location.pathname.lastIndexOf("/")+1)+"/url/href").once('value').then(function(snapshot) {
     try {
-        var testURL = new URL(snapshot.val().url);
+        var testURL = new URL(snapshot.val());
         urlEle.innerHTML = testURL;
         urlEle.setAttribute("href", testURL);
         websiteUrlEle.setAttribute("href", testURL);
@@ -23,7 +21,7 @@ firebase.database().ref(window.location.pathname.substring(window.location.pathn
     }catch(error){
         noUrl.style.display = "block";
         yesUrl.style.display = "none";
-        failedUrl.innerHTML = snapshot.val().url;
+        failedUrl.innerHTML = snapshot.val();
     };
     console.log(url);
     console.log(testURL);
