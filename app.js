@@ -11,7 +11,7 @@
 var url = "bing.com";
 console.log(window.location.pathname);
 console.log(window.location.pathname.substring(window.location.pathname.lastIndexOf("\\")));
-firebase.database().ref(window.location.pathname.substring(window.location.pathname.lastIndexOf("\\"))).once('value').then(function(snapshot) {
+firebase.database().ref(window.location.pathname.substring(window.location.pathname.lastIndexOf("//"))).once('value').then(function(snapshot) {
     url = snapshot.val().url;
     console.log(url);
 });
