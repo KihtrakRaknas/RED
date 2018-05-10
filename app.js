@@ -10,10 +10,13 @@
 
 var url = "bing.com";
 console.log(window.location.pathname);
-console.log(window.location.pathname.substring(window.location.pathname.lastIndexOf("/")));
-firebase.database().ref(window.location.pathname.substring(window.location.pathname.lastIndexOf("/"))).once('value').then(function(snapshot) {
+console.log(window.location.pathname.substring(window.location.pathname.lastIndexOf("/")+1);
+firebase.database().ref(window.location.pathname.substring(window.location.pathname.lastIndexOf("/")+1)).once('value').then(function(snapshot) {
+    //if(snapshot.val().url!=null&&(url.substring(0,7)=="http://"||url.substring(0,8)=="https://"))
     url = snapshot.val().url;
+    var testURL = new URL(url);
     console.log(url);
+    console.log(testURL);
 });
                                                  
 var urlEle = document.getElementById("url");
