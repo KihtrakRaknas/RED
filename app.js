@@ -9,12 +9,12 @@ firebase.database().ref(window.location.pathname.substring(window.location.pathn
         //window.location.replace(url);
         var urlEle = document.getElementById("url");
         var websiteUrlEle = document.getElementById("weburls");
-        var failedUrl = document.getElementById("failedUrl");
         urlEle.innerHTML = testURL;
         urlEle.setAttribute("href", testURL);
         websiteUrlEle.setAttribute("href", testURL);
         websiteUrlEle.innerHTML = websiteUrlEle.hostname;
     }catch(error){
+        var failedUrl = document.getElementById("failedUrl");
         noUrl.style.display = "block";
         yesUrl.style.display = "none";
         failedUrl.innerHTML = snapshot.val().href;
