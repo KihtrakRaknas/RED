@@ -13,11 +13,17 @@ console.log(window.location.pathname);
 console.log(window.location.pathname.substring(window.location.pathname.lastIndexOf("/")+1));
 firebase.database().ref(window.location.pathname.substring(window.location.pathname.lastIndexOf("/")+1)).once('value').then(function(snapshot) {
     //if(snapshot.val().url!=null&&(url.substring(0,7)=="http://"||url.substring(0,8)=="https://"))
-    url = snapshot.val().url;
+    snapshot.val().url;
     try {
-        var testURL = new URL(url)
+        var testURL = new URL(snapshot.val().url);
+        urlEle.innerHTML = testURL;
+        urlEle.setAttribute("href", testURL);
+        websiteUrlEle.setAttribute("href", testURL);
+        websiteUrlEle.innerHTML = websiteUrlEle.hostname;
     }catch(error){
-        console.log(error);
+        noUrl.style.display = "block";
+        yesUrl.style.display = "none";
+        failedUrl.innerHTML = snapshot.val().url;
     };
     console.log(url);
     console.log(testURL);
