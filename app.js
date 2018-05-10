@@ -17,7 +17,8 @@ firebase.database().ref(window.location.pathname.substring(window.location.pathn
     var testURL = new URL(url).then(function(){
         console.log("IT WORKED");
     }).catch(function(error) {
-        console.log("error");
+        console.log(error);
+        testURL=null;
     });
     console.log(url);
     console.log(testURL);
