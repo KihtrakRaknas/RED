@@ -14,7 +14,9 @@ console.log(window.location.pathname.substring(window.location.pathname.lastInde
 firebase.database().ref(window.location.pathname.substring(window.location.pathname.lastIndexOf("/")+1)).once('value').then(function(snapshot) {
     //if(snapshot.val().url!=null&&(url.substring(0,7)=="http://"||url.substring(0,8)=="https://"))
     url = snapshot.val().url;
-    var testURL = new URL(url);
+    var testURL = new URL(url).catch(function(error) {
+        console.log("error");
+    });
     console.log(url);
     console.log(testURL);
 });
