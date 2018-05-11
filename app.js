@@ -28,13 +28,13 @@ try{ firebase.database().ref(window.location.pathname.substring(window.location.
    }catch(error){
     //var urlp = window.location.pathname.substring(window.location.pathname.lastIndexOf("/")+1);
     //if(urlp.val().contains(".")||urlp.val().contains("#")||urlp.val().contains("$")||urlp.val().contains("[")||urlp.val().contains("]")){
-         $(document).ready(function() {
+         window.onload = function() {
             document.getElementById("noneUrl").style.display = "block";
             document.getElementById("yesUrl").style.display = "none";
             document.getElementById("register").innerHTML="invalid REDurl";
             document.getElementById("register").classList.add("disabled");
             document.getElementById("register").classList.remove("btn-success");
             document.getElementById("register").classList.add("btn-danger");
-         });
+         }
     //}
    }
