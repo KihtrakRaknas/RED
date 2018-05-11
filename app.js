@@ -6,7 +6,7 @@ console.log(window.location.pathname.substring(window.location.pathname.lastInde
 firebase.database().ref(window.location.pathname.substring(window.location.pathname.lastIndexOf("/")+1)+"/url").once('value').then(function(snapshot) {
     try {
         var testURL = new URL(snapshot.val());
-        //window.location.replace(url);
+        window.location.replace(url);
         var urlEle = document.getElementById("url");
         var websiteUrlEle = document.getElementById("weburls");
         urlEle.innerHTML = testURL;
