@@ -10,7 +10,7 @@ btnLogin.addEventListener("click", ()=>{
     console.log("TEST");
     const email = txtEmail.value
     const password = txtPassword.value
-    const promise = firebase.auth().signInWithEmailAndPassword(b, c);
+    const promise = firebase.auth().signInWithEmailAndPassword(email, password);
     promise.catch(pro=>{
         console.log(pro.messsage),
         $(document).ready(function() {
@@ -23,7 +23,7 @@ var userID;
 btnSignUp.addEventListener("click", ()=>{
     const email = txtEmail.value
     const password = txtPassword.value
-    const promise = firebase.auth().createUserWithEmailAndPassword(b, c);
+    const promise = firebase.auth().createUserWithEmailAndPassword(email, password);
     promise.catch(pro=>{
         console.log(pro.messsage),
         $(document).ready(function() {
@@ -41,5 +41,12 @@ btnSignUpWithGoogle.addEventListener("click", ()=>{
             $("#logFailedAlert").slideDown().delay("100").slideUp()
         })
     })
-}
-);
+});
+
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    console.log(user);
+  } else {
+    console.log("NOT SIGNED IN");
+  }
+});
