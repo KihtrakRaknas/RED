@@ -33,8 +33,8 @@ permalink: /404.html
             }catch(error){
                 $(document).ready(function() {
                     if(snapshot.val()==undefined||snapshot.val().contains(".")||snapshot.val().contains("#")||snapshot.val().contains("$")||snapshot.val().contains("[")||snapshot.val().contains("]")||snapshot.val().contains("/")){
-                        noneUrl.style.display = "block";
-                        yesUrl.style.display = "none";
+                        document.getElementById("noneUrl").style.display = "block";
+                        document.getElementById("yesUrl").style.display = "none";
                         if(snapshot.val()!=undefined){
                            document.getElementById("register").innerHTML="invalid REDurl";
                            document.getElementById("register").classList.add("disabled");
@@ -42,10 +42,9 @@ permalink: /404.html
                             document.getElementById("register").classList.add("btn-danger");
                         }
                     }else{
-                        var failedUrl = document.getElementById("failedUrl");
-                        noUrl.style.display = "block";
-                        yesUrl.style.display = "none";
-                        failedUrl.innerHTML = snapshot.val();
+                        document.getElementById("noUrl").style.display = "block";
+                        document.getElementById("yesUrl").style.display = "none";
+                        document.getElementById("failedUrl").innerHTML = snapshot.val();
                     }
                 });
             }
@@ -59,18 +58,15 @@ permalink: /404.html
   	<nav class="navbar navbar-expand-sm sticky-top text-center" style = "margin-top: 0px;">
 	</nav>
 		<div id = "yesUrl" class="container">
-			<!--<h2>You are being redicected to <kbd><a id=“weburls” href="http://www.google.com">website</a></knd>.</h2>-->
 			<h2>You are being redirected to <a id = "weburls">a website</a>.</h2>
 			<p>This is supposted to happen instantaneously but if you are currently reading this, you can click the link to be taken there: <kbd><a id = "url">[URL hasn’t been resolved yet]</a></kbd></p>
 			<p>If that doesn't work for some reason, you can always just copy and paste the address into an address bar.</p>
 		</div>
 	  	<div id ="noUrl" class="container" style="display:none">
-			<!--<h2>You are being redicected to <kbd><a id=“weburls” href="http://www.google.com">website</a></knd>.</h2>-->
 			<h2>The URL you were supposed to be redirected to was not valid.</h2>
 			<p>Here is where the creator of this REDurl wanted you to go: <kbd id="failedUrl">[URL hasn’t been resolved yet]</kbd></p>
 		</div>
       	 <div id ="noneUrl" class="container" style="display:none">
-			<!--<h2>You are being redicected to <kbd><a id=“weburls” href="http://www.google.com">website</a></knd>.</h2>-->
 			<h2>This REDurl doesn't point anywhere</h2>
              <p>Perhaps it was entered incorrectly.</p>
             <button id = "register" type="button" class="btn btn-success btn-lg">Click Here to register the REDurl</button>
