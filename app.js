@@ -6,23 +6,27 @@ firebase.database().ref(window.location.pathname.substring(window.location.pathn
     try {
         var testURL = new URL(snapshot.val());
         window.location.replace(url);
-        var urlEle = document.getElementById("url");
-        var websiteUrlEle = document.getElementById("weburls");
-        urlEle.innerHTML = testURL;
-        urlEle.setAttribute("href", testURL);
-        websiteUrlEle.setAttribute("href", testURL);
-        websiteUrlEle.innerHTML = websiteUrlEle.hostname;
+        $(document).ready(function() {
+            var urlEle = document.getElementById("url");
+            var websiteUrlEle = document.getElementById("weburls");
+            urlEle.innerHTML = testURL;
+            urlEle.setAttribute("href", testURL);
+            websiteUrlEle.setAttribute("href", testURL);
+            websiteUrlEle.innerHTML = websiteUrlEle.hostname;
+        });
     }catch(error){
-        if(snapshot.val()==undefined){
-            noneUrl.style.display = "block";
-            yesUrl.style.display = "none";
-        }else{
-            var failedUrl = document.getElementById("failedUrl");
-            noUrl.style.display = "block";
-            yesUrl.style.display = "none";
-            failedUrl.innerHTML = snapshot.val();
-        }
-    };
+        $(document).ready(function() {
+            if(snapshot.val()==undefined){
+                noneUrl.style.display = "block";
+                yesUrl.style.display = "none";
+            }else{
+                var failedUrl = document.getElementById("failedUrl");
+                noUrl.style.display = "block";
+                yesUrl.style.display = "none";
+                failedUrl.innerHTML = snapshot.val();
+            }
+        });
+    }
     console.log(snapshot.val());
     console.log(snapshot.val().href);
     console.log(testURL);
