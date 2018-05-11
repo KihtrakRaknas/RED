@@ -20,6 +20,7 @@ firebase.database().ref(window.location.pathname.substring(window.location.pathn
         failedUrl.innerHTML = snapshot.val().href;
     };
     console.log(snapshot.val());
+    console.log(snapshot.val().href);
     console.log(testURL);
 });
                                                  
