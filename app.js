@@ -5,7 +5,7 @@ console.log(window.location.pathname);
 console.log(window.location.pathname.substring(window.location.pathname.lastIndexOf("/")+1));
 firebase.database().ref(window.location.pathname.substring(window.location.pathname.lastIndexOf("/")+1)+"/url").once('value').then(function(snapshot) {
     try {
-        var testURL = new URL(snapshot.val().href);
+        var testURL = new URL(snapshot.val());
         //window.location.replace(url);
         var urlEle = document.getElementById("url");
         var websiteUrlEle = document.getElementById("weburls");
@@ -17,7 +17,7 @@ firebase.database().ref(window.location.pathname.substring(window.location.pathn
         var failedUrl = document.getElementById("failedUrl");
         noUrl.style.display = "block";
         yesUrl.style.display = "none";
-        failedUrl.innerHTML = snapshot.val().href;
+        failedUrl.innerHTML = snapshot.val();
     };
     console.log(snapshot.val());
     console.log(snapshot.val().href);
