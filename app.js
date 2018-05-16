@@ -6,6 +6,10 @@ var btnLogin = document.getElementById("btnLogin");
 var btnSignUp = document.getElementById("btnSignUp");
 var btnSignUpWithGoogle = document.getElementById("btnSignUpWithGoogle");
 
+var btnActiveLogin = document.getElementById("btnActiveLogin");
+var btnActiveSignUp = document.getElementById("btnActiveSignUp");
+var btnSignUpWithGoogle2 = document.getElementById("btnSignUpWithGoogle2");
+
 btnLogin.addEventListener("click", ()=>{
     console.log("TEST");
     const email = txtEmail.value
@@ -34,6 +38,16 @@ btnSignUp.addEventListener("click", ()=>{
 
 var provider = new firebase.auth.GoogleAuthProvider();
 btnSignUpWithGoogle.addEventListener("click", ()=>{
+    firebase.auth().signInWithRedirect(provider),
+    firebase.auth().getRedirectResult().then().catch(function(pro) {
+        console.log(pro),
+        $(document).ready(function() {
+            $("#logFailedAlert").slideDown().delay("100").slideUp()
+        })
+    })
+});
+
+btnSignUpWithGoogle2.addEventListener("click", ()=>{
     firebase.auth().signInWithRedirect(provider),
     firebase.auth().getRedirectResult().then().catch(function(pro) {
         console.log(pro),

@@ -18,40 +18,26 @@
                 <span class="navbar-toggler-icon"></span>
         </button>
         
-        <h1 class="text-center" style="color:#840909;"><span style="color:red">RED</span>irector</h1>
+        <!--<h1 class="text-center" style="color:#840909;"><span style="color:red">RED</span>irector</h1>-->
         
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav ml-auto">
               <li class="nav-item active">
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Features</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Dropdown link
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <form class="form-inline" id="signInForm" onsubmit="return!1" style="display: block;">
-
-                  <input id="txtEmail" class="form-control" type="email" placeholder="Email">
-
-                    <input id="txtPassword" class="form-control" type="password" placeholder="Password">
-
-                    <button id="btnLogin" class="btn btn-light">Log in</button>
-
-                    <button id="btnSignUp" class="btn btn-secondary">Sign Up</button>
-
-                    <button id="btnSignUpWithGoogle" class="btn btn-danger">Sign Up/In with Google</button>
-
-                  </form>
-                </div>
+                <a class="nav-link" href="#">Dashboard</a>
               </li>
             </ul>
+                 <form class="form-inline" id="signInForm" onsubmit="return!1" style="display: block;">
+
+                    <button id="btnActiveLogin" class="btn btn-secondary btn-outline-secondary">Log in</button>
+
+                    <button id="btnActiveSignUp" class="btn btn-primary btn-outline-primary">Sign Up</button>
+
+                    <button id="btnSignUpWithGoogle" class="btn btn-danger btn-outline-danger">Sign Up/In with Google</button>
+
+                  </form>
           </div>
         
         
@@ -71,18 +57,7 @@
 		<button id="btnSignUpWithGoogle" class="btn btn-danger">Sign Up/In with Google</button>
       
       </form>
-          
-		<div id = "yesUrl" class="container">
-			<!--<h2>You are being redicected to <kbd><a id=“weburls” href="http://www.google.com">website</a></knd>.</h2>-->
-			<h2>You are being redicected to <a id = "weburls">website</a>.</h2>
-			<p>This is supposted to happen instantaniusly but if you are currently reading this, you can click the link to be taken there: <kbd><a id = "url">[URL hasn’t been resolved yet]</a></kbd></p>
-			<p>If that doesn't work for some reason, you can always just copy and paste the address into an address bar.</p>
-		</div>
-	  	<div id ="noUrl" class="container" style="display:none">
-			<!--<h2>You are being redicected to <kbd><a id=“weburls” href="http://www.google.com">website</a></knd>.</h2>-->
-			<h2>The URL you were suppost to be redirected to was not valid.</h2>
-			<p>Here is where the creator of this REDirect wanted you to go: <kbd id="failedUrl">[URL hasn’t been resolved yet]</kbd></p>
-		</div>
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
