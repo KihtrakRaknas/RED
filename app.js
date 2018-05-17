@@ -131,7 +131,7 @@ btnSignOut.addEventListener("click", ()=>{
 var txtREDurl = document.getElementById("txtREDurl");
 var currentPage = new URL(window.location.href);
 $(document).ready(function() {
-    if((currentPage.hostname + currentPage.pathname).contains("index.html");
+    if((currentPage.hostname + currentPage.pathname).contains("index.html")
         txtREDurl.placeholder = "The text after " + (currentPage.hostname + currentPage.pathname).substring(0,indexof("index.html"));
     else   
         txtREDurl.placeholder = "The text after " + (currentPage.hostname + currentPage.pathname);
