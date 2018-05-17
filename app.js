@@ -1,4 +1,4 @@
-        firebase.initializeApp({apiKey: "AIzaSyBpAWpSB1sSjuV1qR8woZoamGVonMgYN_Y",authDomain: "red-irector.firebaseapp.com",databaseURL: "https://red-irector.firebaseio.com",projectId: "red-irector",storageBucket: "red-irector.appspot.com",messagingSenderId: "578371314492"});
+firebase.initializeApp({apiKey: "AIzaSyBpAWpSB1sSjuV1qR8woZoamGVonMgYN_Y",authDomain: "red-irector.firebaseapp.com",databaseURL: "https://red-irector.firebaseio.com",projectId: "red-irector",storageBucket: "red-irector.appspot.com",messagingSenderId: "578371314492"});
 
 var txtEmail = document.getElementById("txtEmail");
 var txtPassword = document.getElementById("txtPassword");
@@ -9,6 +9,7 @@ var btnSignUpWithGoogle = document.getElementById("btnSignUpWithGoogle");
 var btnActiveLogin = document.getElementById("btnActiveLogin");
 var btnActiveSignUp = document.getElementById("btnActiveSignUp");
 var btnSignUpWithGoogle2 = document.getElementById("btnSignUpWithGoogle2");
+var btnSignOut = document.getElementById("btnSignOut");
 
 btnLogin.addEventListener("click", ()=>{
     console.log("TEST");
@@ -59,10 +60,18 @@ btnSignUpWithGoogle2.addEventListener("click", ()=>{
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
-    console.log(user);
+      btnActiveLogin.style.display = "none";
+      btnActiveSignUp.style.display = "none";
+      btnSignUpWithGoogle2.style.display = "none";
+      btnSignOut.style.display = "block";
+      console.log(user);
       $("#signInForm").slideUp();
   } else {
-    console.log("NOT SIGNED IN");
+      console.log("NOT SIGNED IN");
+      btnActiveLogin.style.display = "block";
+      btnActiveSignUp.style.display = "block";
+      btnSignUpWithGoogle2.style.display = "block";
+      btnSignOut.style.display = "none";
   }
 });
 
@@ -110,4 +119,17 @@ btnActiveSignUp.addEventListener("click", ()=>{
             btnSignUpWithGoogle.style.display = "none";
             $("#signInForm").slideDown();
     }
+});
+
+
+
+btnSignOut.addEventListener("click", ()=>{
+    firebase.auth().signOut();
+});
+
+
+var txtREDurl = document.getElementById("txtREDurl");
+var currentPage = new URL(window.location.href);
+$(document).ready(function() {
+    txtREDurl.placeholder = currentPage.hostname + currentPage.pathname;
 });
