@@ -17,6 +17,7 @@ var txtWebsite = document.getElementById("txtWebsite");
 var txtREDurl = document.getElementById("txtREDurl");
 var btnRegister = document.getElementById("btnRegister");
 
+var dashSignInReq = document.getElementById(“dashSignInReq”);
 
 btnLogin.addEventListener("click", ()=>{
     console.log("TEST");
@@ -72,6 +73,7 @@ firebase.auth().onAuthStateChanged(function(user) {
       signedIn = true;
       btnActiveLogin.style.display = "none";
       btnActiveSignUp.style.display = "none";
+dashSignInReq.style.display = “none”;
       btnSignUpWithGoogle2.style.display = "none";
       btnSignOut.style.display = "block";
       console.log(user);
@@ -82,7 +84,9 @@ firebase.auth().onAuthStateChanged(function(user) {
       btnActiveLogin.style.display = "block";
       btnActiveSignUp.style.display = "block";
       btnSignUpWithGoogle2.style.display = "block";
+
       btnSignOut.style.display = "none";
+dashSignInReq.style.display = “block”;
   }
 });
 
