@@ -29,13 +29,13 @@
                 <a class="nav-link" href="#">Dashboard</a>
               </li>
             </ul>
-                 <form class="form-inline" id="signInForm" onsubmit="return!1" style="display: block;">
+                 <form class="form-inline" onsubmit="return!1">
 
                     <button id="btnActiveLogin" class="btn btn-secondary btn-outline-secondary">Log in</button>
 
                     <button id="btnActiveSignUp" class="btn btn-primary btn-outline-primary">Sign Up</button>
 
-                    <button id="btnSignUpWithGoogle" class="btn btn-danger btn-outline-danger">Sign Up/In with Google</button>
+                    <button id="btnSignUpWithGoogle2" class="btn btn-danger btn-outline-danger">Sign Up/In with Google</button>
 
                   </form>
           </div>
@@ -44,20 +44,23 @@
 	</nav>
       
       <div class="alert alert-dismissible alert-danger" id="logFailedAlert" style="display:none"><button class="close" data-dismiss="alert" type="button">✖</button> <strong>Failed!</strong> Log In or Sign Up unsuccessful</div>
-      <form class="form-inline" id="signInForm" onsubmit="return!1" style="display: block;">
-          
-      <input id="txtEmail" class="form-control" type="email" placeholder="Email">
-
-		<input id="txtPassword" class="form-control" type="password" placeholder="Password">
-
-		<button id="btnLogin" class="btn btn-light">Log in</button>
-
-		<button id="btnSignUp" class="btn btn-secondary">Sign Up</button>
-
-		<button id="btnSignUpWithGoogle" class="btn btn-danger">Sign Up/In with Google</button>
       
-      </form>
+      
+      <div class="container" id="signInForm" style="display: none; background-color: lightgrey; border-radius: 0 0 20px 20px;">
+          <form class="form-inline justify-content-center" id="signInFormForm" onsubmit="return!1" style="padding-top: 50px;padding-bottom: 50px">
 
+            <input id="txtEmail" class="form-control" type="email" placeholder="Email">
+
+            <input id="txtPassword" class="form-control" type="password" placeholder="Password">
+
+            <button id="btnLogin" class="btn btn-light">Log in</button>
+
+            <button id="btnSignUp" class="btn btn-primary">Sign Up</button>
+
+            <button id="btnSignUpWithGoogle" class="btn btn-danger">Sign Up/In with Google</button>
+
+          </form>
+      </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

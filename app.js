@@ -60,7 +60,54 @@ btnSignUpWithGoogle2.addEventListener("click", ()=>{
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     console.log(user);
+      $("#signInForm").slideUp();
   } else {
     console.log("NOT SIGNED IN");
   }
+});
+
+var signInFormForm = document.getElementById("signInFormForm");
+btnActiveLogin.addEventListener("click", ()=>{
+    if(btnLogin.style.display!="block"){
+        var pad = 50;
+        var loop = setInterval(function(){pad--;signInFormForm.style.paddingTop = pad+"px";}, 7);
+        
+        $("#signInForm").slideUp(function(){
+            btnLogin.style.display = "block";
+            btnSignUp.style.display = "none";
+            btnSignUpWithGoogle.style.display = "none";
+            clearInterval(loop);
+            pad = 0;
+            var loop2 = setInterval(function(){pad++;signInFormForm.style.paddingTop = pad+"px";if(pad >= 50){clearInterval(loop2);}}, 10);
+            $("#signInForm").slideDown();
+        });
+    }else{
+        btnLogin.style.display = "block";
+        btnSignUp.style.display = "none";
+        btnSignUpWithGoogle.style.display = "none";
+        $("#signInForm").slideDown();
+    }
+    
+});
+
+btnActiveSignUp.addEventListener("click", ()=>{
+    if(btnSignUp.style.display!="block"){
+        var pad = 50;
+        var loop = setInterval(function(){pad--;signInFormForm.style.paddingTop = pad+"px";}, 7);
+        $("signInFormForm").slideUp();
+        $("#signInForm").slideUp(function(){
+            btnSignUp.style.display = "block";
+            btnLogin.style.display = "none";
+            btnSignUpWithGoogle.style.display = "none";
+            clearInterval(loop);
+            pad = 0;
+            var loop2 = setInterval(function(){pad++;signInFormForm.style.paddingTop = pad+"px";if(pad >= 50){clearInterval(loop2);}}, 7);
+            $("#signInForm").slideDown();
+        });
+    }else{
+            btnSignUp.style.display = "block";
+            btnLogin.style.display = "none";
+            btnSignUpWithGoogle.style.display = "none";
+            $("#signInForm").slideDown();
+    }
 });
