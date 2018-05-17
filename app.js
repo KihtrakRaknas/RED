@@ -11,6 +11,8 @@ var btnActiveSignUp = document.getElementById("btnActiveSignUp");
 var btnSignUpWithGoogle2 = document.getElementById("btnSignUpWithGoogle2");
 var btnSignOut = document.getElementById("btnSignOut");
 
+var btnDash = document.getElementById("btnDash");
+
 btnLogin.addEventListener("click", ()=>{
     console.log("TEST");
     const email = txtEmail.value
@@ -57,9 +59,10 @@ btnSignUpWithGoogle2.addEventListener("click", ()=>{
         })
     })
 });
-
+var signedIn = false;
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
+      signedIn = true;
       btnActiveLogin.style.display = "none";
       btnActiveSignUp.style.display = "none";
       btnSignUpWithGoogle2.style.display = "none";
@@ -67,6 +70,7 @@ firebase.auth().onAuthStateChanged(function(user) {
       console.log(user);
       $("#signInForm").slideUp();
   } else {
+      signedIn = false;
       console.log("NOT SIGNED IN");
       btnActiveLogin.style.display = "block";
       btnActiveSignUp.style.display = "block";
@@ -131,8 +135,22 @@ btnSignOut.addEventListener("click", ()=>{
 var txtREDurl = document.getElementById("txtREDurl");
 var currentPage = new URL(window.location.href);
 $(document).ready(function() {
-    if((currentPage.hostname + currentPage.pathname).contains("index.html")
+    if((currentPage.hostname + currentPage.pathname).contains("index.html"))
         txtREDurl.placeholder = "REDur: The text after " + (currentPage.hostname + currentPage.pathname).substring(0,(currentPage.hostname + currentPage.pathname).indexOf("index.html"));
     else   
         txtREDurl.placeholder = "REDur: The text after " + (currentPage.hostname + currentPage.pathname);
 });
+
+btnDash.addEventListener("click", ()=>{
+    if(signedIn)
+        console.log("GO TO PAGE");
+    else
+        dropAllOfSignIn();
+});
+
+function dropAllOfSignIn(){
+    btnSignUp.style.display = "block";
+    btnLogin.style.display = "block";
+    btnSignUpWithGoogle.style.display = "block";
+    $("#signInForm").slideDown();
+}
