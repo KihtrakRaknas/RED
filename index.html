@@ -11,7 +11,7 @@
     <title>REDirector</title>
   </head>
   <body>
-  	<nav class="navbar navbar-expand-sm sticky-top text-center" style = "margin-top: 0px;">
+  	<nav class="navbar navbar-expand-sm sticky-top text-center" style = "margin-top: 0px;background-color: white">
         <a class="navbar-brand" href="#" style="color:#840909;"><span style="color:red">RED</span>irector</a>
         
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,6 +71,13 @@
 
             <input id="txtREDurl" class="form-control" type="text" placeholder="REDurl" style="margin-top: 10px">
               <br>
+              
+              <div class="alert alert-dismissible alert-danger" id="invalidURL" style="display:none"><button class="close" data-dismiss="alert" type="button">✖</button> <strong>Invalid URL!</strong> The URL you entered was invalid. <em id="urlSuggestion"></em></div>
+              
+              <div class="alert alert-dismissible alert-danger" id="invalidREDurl" style="display:none"><button class="close" data-dismiss="alert" type="button">✖</button> <strong>Invalid REDurl!</strong> The redURL you entered was invalid. <em id="REDurlSuggestion"></em></div>
+              
+              <div class="alert alert-info" id="recap" style="display: none"><strong>Failed!</strong>The link <kbd id = "recapREDLink"></kbd> will redirect to <kbd id = "recapURL"></kbd></div>
+              
             <button id="btnRegister" class="btn btn-lg btn-primary">Register</button>
 
           </form>

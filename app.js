@@ -13,6 +13,11 @@ var btnSignOut = document.getElementById("btnSignOut");
 
 var btnDash = document.getElementById("btnDash");
 
+var txtWebsite = document.getElementById("txtWebsite");
+var txtREDurl = document.getElementById("txtREDurl");
+var btnRegister = document.getElementById("btnRegister");
+
+
 btnLogin.addEventListener("click", ()=>{
     console.log("TEST");
     const email = txtEmail.value
@@ -60,8 +65,10 @@ btnSignUpWithGoogle2.addEventListener("click", ()=>{
     })
 });
 var signedIn = false;
+var userID = "";
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
+      userID = user.uid;
       signedIn = true;
       btnActiveLogin.style.display = "none";
       btnActiveSignUp.style.display = "none";
@@ -136,9 +143,9 @@ var txtREDurl = document.getElementById("txtREDurl");
 var currentPage = new URL(window.location.href);
 $(document).ready(function() {
     if((currentPage.hostname + currentPage.pathname).includes("index.html"))
-        txtREDurl.placeholder = "REDur: The text after " + (currentPage.hostname + currentPage.pathname).substring(0,(currentPage.hostname + currentPage.pathname).indexOf("index.html"));
+        txtREDurl.placeholder = "REDurl: The text after " + (currentPage.hostname + currentPage.pathname).substring(0,(currentPage.hostname + currentPage.pathname).indexOf("index.html"));
     else   
-        txtREDurl.placeholder = "REDur: The text after " + (currentPage.hostname + currentPage.pathname);
+        txtREDurl.placeholder = "REDurl: The text after " + (currentPage.hostname + currentPage.pathname);
 });
 
 btnDash.addEventListener("click", ()=>{
@@ -153,4 +160,108 @@ function dropAllOfSignIn(){
     btnLogin.style.display = "block";
     btnSignUpWithGoogle.style.display = "block";
     $("#signInForm").slideDown();
+}
+var REDlink;
+var URLlink;
+
+var recapREDLink = document.getElementById("recapREDLink");
+var recapURL = document.getElementById("recapURL");
+
+txtWebsite.addEventListener("change", ()=>{
+    if(checkWeb(txtWebsite.value)&&checkREDurl(txtREDurl.value)){
+        if((currentPage.hostname + currentPage.pathname).includes("index.html"))
+            REDlink = (currentPage.hostname + currentPage.pathname).substring(0,(currentPage.hostname + currentPage.pathname).indexOf("index.html"))+"/"+txtREDurl;
+        else   
+            REDlink = (currentPage.hostname + currentPage.pathname)+"/"+txtREDurl;
+        recapREDLink.innerHTML = REDlink;
+        URLlink = txtWebsite.value;
+        recapURL = URLlink;
+        $("#recap").slideDown();
+    }
+});
+
+txtREDurl.addEventListener("change", ()=>{
+    if(checkREDurl(txtREDurl.value)&&checkWeb(txtWebsite.value)){
+        if((currentPage.hostname + currentPage.pathname).includes("index.html"))
+            REDlink = (currentPage.hostname + currentPage.pathname).substring(0,(currentPage.hostname + currentPage.pathname).indexOf("index.html"))+"/"+txtREDurl;
+        else   
+            REDlink = (currentPage.hostname + currentPage.pathname)+"/"+txtREDurl;
+        recapREDLink.innerHTML = REDlink;
+        URLlink = txtWebsite.value;
+        recapURL = URLlink;
+        $("#recap").slideDown();
+    }
+});
+
+btnRegister.addEventListener("click", ()=>{
+    console.log(checkREDurl(txtREDurl.value));
+    console.log(checkWeb(txtWebsite.value));
+    if(checkWeb(txtWebsite.value)&&checkREDurl(txtREDurl.value)){
+        console.log("PASSED");
+        if((currentPage.hostname + currentPage.pathname).includes("index.html"))
+            REDlink = (currentPage.hostname + currentPage.pathname).substring(0,(currentPage.hostname + currentPage.pathname).indexOf("index.html"))+"/"+txtREDurl;
+        else   
+            REDlink = (currentPage.hostname + currentPage.pathname)+"/"+txtREDurl;
+        recapREDLink.innerHTML = REDlink;
+        URLlink = txtWebsite.value;
+        recapURL = URLlink;
+        $("#recap").slideDown();
+        
+            if(signedIn){
+                console.log("GO TO PAGE");
+            }else{
+                dropAllOfSignIn();
+            }
+        
+    }else{
+        console.log("Failed");
+        $("#recap").slideUp();
+    }
+
+});
+var urlSuggestion = document.getElementById("urlSuggestion");
+function checkWeb(str){
+    try {
+        var testURL = new URL(str);
+        $("#invalidURL").slideUp();
+        return true;
+    }catch(error){
+        if(str.substring(0,7)!="http://" && str.substring(0,8)!="https://")
+            urlSuggestion.innerHTML= "Try adding http:// to your url";
+        else
+            urlSuggestion.innerHTML= "";
+        $("#invalidURL").slideDown();
+        return false;
+    }
+    $("#invalidURL").slideDown();
+}
+var REDurlSuggestion = document.getElementById("REDurlSuggestion");
+function checkREDurl(str){
+    if(str == ""){
+        REDurlSuggestion.innerHTML = "REDurl can't be empty";
+        $("#invalidREDurl").slideDown();
+        return false;
+    }else if(str.includes(".")||str.includes("#")||str.includes("$")||str.includes("/")||str.includes("[")||str.includes("]")){
+        REDurlSuggestion.innerHTML = "REDurl can't contain \".\", \"#\", \"$\", \"/\", \"[\", or \"]\"";
+        $("#invalidREDurl").slideDown();
+        return false;
+    }else{
+        try{
+            //CANT RETURN STUFF HERE
+            firebase.database().ref(str+"/user").once('value').then(function(snapshot) {
+                if(snapshot.val()==null||snapshot.val()==userID){
+                    $("#invalidREDurl").slideUp();
+                    return true;
+                }else{
+                    REDurlSuggestion.innerHTML = "The REDurl ("+str+") is taken";
+                    $("#invalidREDurl").slideDown();
+                    return false;
+                }
+            });
+        }catch(error){
+            REDurlSuggestion.innerHTML = "REDurl is incompatible";
+            $("#invalidREDurl").slideDown();
+            return false;
+        }
+    }
 }
