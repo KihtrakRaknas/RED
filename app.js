@@ -157,10 +157,8 @@ var txtREDurl = document.getElementById("txtREDurl");
 var currentPage = new URL(window.location.href);
 
 $(document).ready(function() {
-    if(window.location.search.substring(1).split("=")[0]=="redURL"){
-        console.log(window.location.search.substring(1).split("=")[1]);
+    if(window.location.search.substring(1).split("=")[0]=="redURL")
         txtREDurl.value = window.location.search.substring(1).split("=")[1];
-    }
     if((currentPage.hostname + currentPage.pathname).includes("index.html"))
         txtREDurl.placeholder = "REDurl: The text after " + (currentPage.hostname + currentPage.pathname).substring(0,(currentPage.hostname + currentPage.pathname).indexOf("index.html"));
     else   
