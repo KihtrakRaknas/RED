@@ -206,18 +206,18 @@ txtWebsite.addEventListener("change", ()=>{
 });
 
 $("#txtREDurl").keyup(function() {
-    validRED = checkREDurl(txtREDurl.value);
+    validRED = checkREDurl(txtREDurl.value.toLowerCase());
     recaper();
 });
 
 txtREDurl.addEventListener("change", ()=>{
-    validRED = checkREDurl(txtREDurl.value);
+    validRED = checkREDurl(txtREDurl.value.toLowerCase());
     recaper();
 });
 
 function recaper(){
         if(validURL&&validRED){
-        var str = txtREDurl.value;
+        var str = txtREDurl.value.toLowerCase();
          try{
             //CANT RETURN STUFF HERE
             firebase.database().ref(str+"/user").once('value').then(function(snapshot) {
@@ -253,8 +253,8 @@ function recaper(){
 var successREDurl = document.getElementById("successREDurl");
 var successURL = document.getElementById("successURL");
 btnRegister.addEventListener("click", ()=>{
-    if(checkWeb(txtWebsite.value)&&checkREDurl(txtREDurl.value)){
-        var str = txtREDurl.value;
+    if(checkWeb(txtWebsite.value)&&checkREDurl(txtREDurl.value.toLowerCase())){
+        var str = txtREDurl.value.toLowerCase();
          try{
             //CANT RETURN STUFF HERE
             firebase.database().ref(str+"/user").once('value').then(function(snapshot) {
