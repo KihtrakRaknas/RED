@@ -160,11 +160,22 @@ $(document).ready(function() {
         txtREDurl.placeholder = "REDurl: The text after " + (currentPage.hostname + currentPage.pathname);
 });
 
+var goToDash = false;
+var failedAttempts = 0;
+
 btnDash.addEventListener("click", ()=>{
-    if(signedIn)
+    if(signedIn){
         console.log("GO TO PAGE");
-    else
-        dropAllOfSignIn();
+    }else{
+        goToDash = true;
+        console.log(signInFormForm.style.display);
+        if((signInForm.style.display == "none"))
+            dropAllOfSignIn();
+        failedAttempts++;
+        if(failedAttempts>=3){
+           alert("You need to sign in to access this");
+        }
+    }
 });
 
 function dropAllOfSignIn(){
