@@ -218,6 +218,7 @@ function callCheckURL(){
             console.log(error);
             REDurlSuggestion.innerHTML = "REDurl is incompatible";
             $("#invalidREDurl").slideDown();
+$("#recap").slideUp();
         }
         
     }else{
@@ -262,6 +263,7 @@ function callCheckRed(){
             console.log(error);
             REDurlSuggestion.innerHTML = "REDurl is incompatible";
             $("#invalidREDurl").slideDown();
+$("#recap").slideUp();
         }
         
     }else{
@@ -305,7 +307,7 @@ btnRegister.addEventListener("click", ()=>{
             REDurlSuggestion.innerHTML = "REDurl is incompatible";
             $("#invalidREDurl").slideDown();
         }
-        
+        $("#recap").slideUp();
     }else{
         console.log("Failed");
         $("#recap").slideUp();
