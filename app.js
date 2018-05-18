@@ -179,74 +179,172 @@ var URLlink;
 var recapREDLink = document.getElementById("recapREDLink");
 var recapURL = document.getElementById("recapURL");
 
+var validURL = false;
+var validRED = false;
+
+$("#txtWebsite").keyup(function() {
+    callCheckURL();
+});
+
 txtWebsite.addEventListener("change", ()=>{
-    if(checkWeb(txtWebsite.value)&&checkREDurl(txtREDurl.value)){
-        if((currentPage.hostname + currentPage.pathname).includes("index.html"))
-            REDlink = (currentPage.hostname + currentPage.pathname).substring(0,(currentPage.hostname + currentPage.pathname).indexOf("index.html"))+"/"+txtREDurl;
-        else   
-            REDlink = (currentPage.hostname + currentPage.pathname)+"/"+txtREDurl;
-        recapREDLink.innerHTML = REDlink;
-        URLlink = txtWebsite.value;
-        recapURL = URLlink;
-        $("#recap").slideDown();
-    }
+    callCheckURL();
 });
 
-txtREDurl.addEventListener("change", ()=>{
-    if(checkREDurl(txtREDurl.value)&&checkWeb(txtWebsite.value)){
-        if((currentPage.hostname + currentPage.pathname).includes("index.html"))
-            REDlink = (currentPage.hostname + currentPage.pathname).substring(0,(currentPage.hostname + currentPage.pathname).indexOf("index.html"))+"/"+txtREDurl;
-        else   
-            REDlink = (currentPage.hostname + currentPage.pathname)+"/"+txtREDurl;
-        recapREDLink.innerHTML = REDlink;
-        URLlink = txtWebsite.value;
-        recapURL = URLlink;
-        $("#recap").slideDown();
-    }
-});
-
-btnRegister.addEventListener("click", ()=>{
-    console.log(checkREDurl(txtREDurl.value));
-    console.log(checkWeb(txtWebsite.value));
-    if(checkWeb(txtWebsite.value)&&checkREDurl(txtREDurl.value)){
-        console.log("PASSED");
-        if((currentPage.hostname + currentPage.pathname).includes("index.html"))
-            REDlink = (currentPage.hostname + currentPage.pathname).substring(0,(currentPage.hostname + currentPage.pathname).indexOf("index.html"))+"/"+txtREDurl;
-        else   
-            REDlink = (currentPage.hostname + currentPage.pathname)+"/"+txtREDurl;
-        recapREDLink.innerHTML = REDlink;
-        URLlink = txtWebsite.value;
-        recapURL = URLlink;
-        $("#recap").slideDown();
+function callCheckURL(){
+    validURL = checkWeb(txtWebsite.value);
+    if(validURL&&validRED){
+        var str = txtREDurl.value;
+         try{
+            //CANT RETURN STUFF HERE
+            firebase.database().ref(str+"/user").once('value').then(function(snapshot) {
+                if(snapshot.val()==null||snapshot.val()==userID){
+                    $("#invalidREDurl").slideUp();
         
-            if(signedIn){
-                console.log("GO TO PAGE");
-            }else{
-                dropAllOfSignIn();
-            }
+                    if((currentPage.hostname + currentPage.pathname).includes("index.html"))
+                        REDlink = (currentPage.hostname + currentPage.pathname).substring(0,(currentPage.hostname + currentPage.pathname).indexOf("index.html"))+str;
+                    else   
+                        REDlink = (currentPage.hostname + currentPage.pathname)+str;
+                    URLlink = txtWebsite.value;
+                    recapREDLink.innerHTML = REDlink;
+                    recapURL.innerHTML = URLlink;
+                    recapURL.href = URLlink;
+                    $("#recap").slideDown();
+                }else{
+                    REDurlSuggestion.innerHTML = "The REDurl ("+str+") is taken";
+                    $("#invalidREDurl").slideDown();
+                }
+            });
+        }catch(error){
+            console.log(error);
+            REDurlSuggestion.innerHTML = "REDurl is incompatible";
+            $("#invalidREDurl").slideDown();
+        }
         
     }else{
         console.log("Failed");
         $("#recap").slideUp();
     }
+}
 
+$("#txtREDurl").keyup(function() {
+    callCheckRed();
+});
+
+txtREDurl.addEventListener("change", ()=>{
+    callCheckRed();
+});
+
+function callCheckRed(){
+    validRED = checkREDurl(txtREDurl.value);
+    if(validURL&&validRED){
+        var str = txtREDurl.value;
+         try{
+            //CANT RETURN STUFF HERE
+            firebase.database().ref(str+"/user").once('value').then(function(snapshot) {
+                if(snapshot.val()==null||snapshot.val()==userID){
+                    $("#invalidREDurl").slideUp();
+        
+                    if((currentPage.hostname + currentPage.pathname).includes("index.html"))
+                        REDlink = (currentPage.hostname + currentPage.pathname).substring(0,(currentPage.hostname + currentPage.pathname).indexOf("index.html"))+str;
+                    else   
+                        REDlink = (currentPage.hostname + currentPage.pathname)+str;
+                    URLlink = txtWebsite.value;
+                    recapREDLink.innerHTML = REDlink;
+                    recapURL.innerHTML = URLlink;
+                    recapURL.href = URLlink;
+                    $("#recap").slideDown(); 
+                }else{
+                    REDurlSuggestion.innerHTML = "The REDurl ("+str+") is taken";
+                    $("#invalidREDurl").slideDown();
+                }
+            });
+        }catch(error){
+            console.log(error);
+            REDurlSuggestion.innerHTML = "REDurl is incompatible";
+            $("#invalidREDurl").slideDown();
+        }
+        
+    }else{
+        console.log("Failed");
+        $("#recap").slideUp();
+    }
+}
+
+btnRegister.addEventListener("click", ()=>{
+    if(checkWeb(txtWebsite.value)&&checkREDurl(txtREDurl.value)){
+        var str = txtREDurl.value;
+         try{
+            //CANT RETURN STUFF HERE
+            firebase.database().ref(str+"/user").once('value').then(function(snapshot) {
+                if(snapshot.val()==null||snapshot.val()==userID){
+                    $("#invalidREDurl").slideUp();
+        
+                    if((currentPage.hostname + currentPage.pathname).includes("index.html"))
+                        REDlink = (currentPage.hostname + currentPage.pathname).substring(0,(currentPage.hostname + currentPage.pathname).indexOf("index.html"))+str;
+                    else   
+                        REDlink = (currentPage.hostname + currentPage.pathname)+str;
+                    URLlink = txtWebsite.value;
+                    recapREDLink.innerHTML = REDlink;
+                    recapURL.innerHTML = URLlink;
+                    recapURL.href = URLlink;
+                    $("#recap").slideDown();
+
+                    if(signedIn){
+                        console.log("GO TO PAGE");
+                    }else{
+                        dropAllOfSignIn();
+                    }
+                    
+                }else{
+                    REDurlSuggestion.innerHTML = "The REDurl ("+str+") is taken";
+                    $("#invalidREDurl").slideDown();
+                }
+            });
+        }catch(error){
+            console.log(error);
+            REDurlSuggestion.innerHTML = "REDurl is incompatible";
+            $("#invalidREDurl").slideDown();
+        }
+        
+    }else{
+        console.log("Failed");
+        $("#recap").slideUp();
+    }
 });
 var urlSuggestion = document.getElementById("urlSuggestion");
+var autoAdd = false;
 function checkWeb(str){
-    try {
-        var testURL = new URL(str);
-        $("#invalidURL").slideUp();
-        return true;
-    }catch(error){
-        if(str.substring(0,7)!="http://" && str.substring(0,8)!="https://")
-            urlSuggestion.innerHTML= "Try adding http:// to your url";
-        else
-            urlSuggestion.innerHTML= "";
-        $("#invalidURL").slideDown();
-        return false;
+    autoAdd = false;
+    if(str.substring(0,7)!="http://" && str.substring(0,8)!="https://"){
+            console.log(str.substring(0,7));
+            console.log("http://");
+            urlSuggestion.innerHTML= "Try adding http:// to your url. Click here to automatically add it";
+            autoAdd = true;
+            $("#invalidURL").slideDown();
+            return false;
+    }else{
+        try {
+            var testURL = new URL(str);
+            $("#invalidURL").slideUp();
+            console.log("WEBPASS");
+            return true;
+        }catch(error){
+            console.log(error);
+                urlSuggestion.innerHTML= "";
+                $("#invalidURL").slideDown();
+                return false;
+        }
     }
-    $("#invalidURL").slideDown();
 }
+
+var invalidURLinvalidURL = document.getElementById("invalidREDurl");
+invalidURL.addEventListener("click", function(e){
+    if(autoAdd){
+        txtWebsite.value = "http://" + txtWebsite.value;
+        validURL = checkWeb(txtWebsite.value);
+    }
+},true);
+
 var REDurlSuggestion = document.getElementById("REDurlSuggestion");
 function checkREDurl(str){
     if(str == ""){
@@ -258,22 +356,7 @@ function checkREDurl(str){
         $("#invalidREDurl").slideDown();
         return false;
     }else{
-        try{
-            //CANT RETURN STUFF HERE
-            firebase.database().ref(str+"/user").once('value').then(function(snapshot) {
-                if(snapshot.val()==null||snapshot.val()==userID){
-                    $("#invalidREDurl").slideUp();
-                    return true;
-                }else{
-                    REDurlSuggestion.innerHTML = "The REDurl ("+str+") is taken";
-                    $("#invalidREDurl").slideDown();
-                    return false;
-                }
-            });
-        }catch(error){
-            REDurlSuggestion.innerHTML = "REDurl is incompatible";
-            $("#invalidREDurl").slideDown();
-            return false;
-        }
+        $("#invalidREDurl").slideUp();
+        return true;
     }
 }
