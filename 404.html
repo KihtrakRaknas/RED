@@ -85,7 +85,7 @@ permalink: /404.html
       
       <script>
         function createRED(){
-            window.location.assign(window.location.protocol+"//"+window.location.hostname + window.location.pathname.substring(0,window.location.pathname.lastIndexOf("/"))+"?"+window.location.pathname.substring(window.location.pathname.lastIndexOf("/")+1).toLowerCase());
+            window.location.assign(window.location.protocol+"//"+window.location.hostname + window.location.pathname.substring(0,window.location.pathname.lastIndexOf("/"))+"?redURL="+window.location.pathname.substring(window.location.pathname.lastIndexOf("/")+1).toLowerCase());
         }
       </script>
 
