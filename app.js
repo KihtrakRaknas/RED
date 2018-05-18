@@ -82,6 +82,8 @@ firebase.auth().onAuthStateChanged(function(user) {
       SignOutMobileNav.style.display = "block";
       console.log(user);
       $("#signInForm").slideUp();
+      if(goToDash)
+          console.log("GOTODASH");
   } else {
       signedIn = false;
       console.log("NOT SIGNED IN");
@@ -169,7 +171,7 @@ btnDash.addEventListener("click", ()=>{
     }else{
         goToDash = true;
         console.log(signInFormForm.style.display);
-        if((signInForm.style.display == "none"))
+        if(signInForm.style.display == "none")
             dropAllOfSignIn();
         failedAttempts++;
         if(failedAttempts>=3){
@@ -194,16 +196,27 @@ var validURL = false;
 var validRED = false;
 
 $("#txtWebsite").keyup(function() {
-    callCheckURL();
+    validURL = checkWeb(txtWebsite.value);
+    recaper();
 });
 
 txtWebsite.addEventListener("change", ()=>{
-    callCheckURL();
+    validURL = checkWeb(txtWebsite.value);
+    recaper();
 });
 
-function callCheckURL(){
-    validURL = checkWeb(txtWebsite.value);
-    if(validURL&&validRED){
+$("#txtREDurl").keyup(function() {
+    validRED = checkREDurl(txtREDurl.value);
+    recaper();
+});
+
+txtREDurl.addEventListener("change", ()=>{
+    validRED = checkREDurl(txtREDurl.value);
+    recaper();
+});
+
+function recaper(){
+        if(validURL&&validRED){
         var str = txtREDurl.value;
          try{
             //CANT RETURN STUFF HERE
@@ -229,60 +242,15 @@ function callCheckURL(){
             console.log(error);
             REDurlSuggestion.innerHTML = "REDurl is incompatible";
             $("#invalidREDurl").slideDown();
-$("#recap").slideUp();
+            $("#recap").slideUp();
         }
-        
     }else{
         console.log("Failed");
         $("#recap").slideUp();
     }
 }
-
-$("#txtREDurl").keyup(function() {
-    callCheckRed();
-});
-
-txtREDurl.addEventListener("change", ()=>{
-    callCheckRed();
-});
-
-function callCheckRed(){
-    validRED = checkREDurl(txtREDurl.value);
-    if(validURL&&validRED){
-        var str = txtREDurl.value;
-         try{
-            //CANT RETURN STUFF HERE
-            firebase.database().ref(str+"/user").once('value').then(function(snapshot) {
-                if(snapshot.val()==null||snapshot.val()==userID){
-                    $("#invalidREDurl").slideUp();
-        
-                    if((currentPage.hostname + currentPage.pathname).includes("index.html"))
-                        REDlink = (currentPage.hostname + currentPage.pathname).substring(0,(currentPage.hostname + currentPage.pathname).indexOf("index.html"))+str;
-                    else   
-                        REDlink = (currentPage.hostname + currentPage.pathname)+str;
-                    URLlink = txtWebsite.value;
-                    recapREDLink.innerHTML = REDlink;
-                    recapURL.innerHTML = URLlink;
-                    recapURL.href = URLlink;
-                    $("#recap").slideDown(); 
-                }else{
-                    REDurlSuggestion.innerHTML = "The REDurl ("+str+") is taken";
-                    $("#invalidREDurl").slideDown();
-                }
-            });
-        }catch(error){
-            console.log(error);
-            REDurlSuggestion.innerHTML = "REDurl is incompatible";
-            $("#invalidREDurl").slideDown();
-$("#recap").slideUp();
-        }
-        
-    }else{
-        console.log("Failed");
-        $("#recap").slideUp();
-    }
-}
-
+var successREDurl = document.getElementById("successREDurl");
+var successURL = document.getElementById("successURL");
 btnRegister.addEventListener("click", ()=>{
     if(checkWeb(txtWebsite.value)&&checkREDurl(txtREDurl.value)){
         var str = txtREDurl.value;
@@ -303,9 +271,25 @@ btnRegister.addEventListener("click", ()=>{
                     $("#recap").slideDown();
 
                     if(signedIn){
-                        console.log("GO TO PAGE");
+                        firebase.database().ref(str).set({
+                            url: recapURL,
+                            user: userID
+                        }, function(error) {
+                            if (error) {
+                              debugInfoForDatabase.innerHTML = error;
+                            } else {
+                                $("#redURLcreatorDiv").slideUp;
+                                $("#successMessage").slideDown();
+                                successREDurl.innerHTML = REDlink;
+                                successURL.innerHTML = URLlink;
+                            }
+                        });
+
                     }else{
-                        dropAllOfSignIn();
+                        if(signInForm.style.display == "none")
+                            dropAllOfSignIn();
+                        else
+                            $("#signInBeforeRegistering").slideDown();
                     }
                     
                 }else{
@@ -355,6 +339,7 @@ invalidURL.addEventListener("click", function(e){
     if(autoAdd){
         txtWebsite.value = "http://" + txtWebsite.value;
         validURL = checkWeb(txtWebsite.value);
+        recaper();
     }
 },true);
 
