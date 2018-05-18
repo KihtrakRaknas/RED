@@ -236,6 +236,7 @@ function recaper(){
                 }else{
                     REDurlSuggestion.innerHTML = "The REDurl ("+str+") is taken";
                     $("#invalidREDurl").slideDown();
+                    $("#recap").slideUp();
                 }
             });
         }catch(error){
@@ -295,14 +296,15 @@ btnRegister.addEventListener("click", ()=>{
                 }else{
                     REDurlSuggestion.innerHTML = "The REDurl ("+str+") is taken";
                     $("#invalidREDurl").slideDown();
+                    $("#recap").slideUp();
                 }
             });
         }catch(error){
             console.log(error);
             REDurlSuggestion.innerHTML = "REDurl is incompatible";
             $("#invalidREDurl").slideDown();
+            $("#recap").slideUp();
         }
-        $("#recap").slideUp();
     }else{
         console.log("Failed");
         $("#recap").slideUp();
