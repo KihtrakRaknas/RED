@@ -224,10 +224,10 @@ function recaper(){
                 if(snapshot.val()==null||snapshot.val()==userID){
                     $("#invalidREDurl").slideUp();
         
-                    if((currentPage.hostname + currentPage.pathname).includes("index.html"))
-                        REDlink = (currentPage.hostname + currentPage.pathname).substring(0,(currentPage.hostname + currentPage.pathname).indexOf("index.html"))+str;
+                    if((currentPage.protocol+"//"+currentPage.hostname + currentPage.pathname).includes("index.html"))
+                        REDlink = (currentPage.protocol+"//"+currentPage.hostname + currentPage.pathname).substring(0,(currentPage.hostname + currentPage.pathname).indexOf("index.html"))+str;
                     else   
-                        REDlink = (currentPage.hostname + currentPage.pathname)+str;
+                        REDlink = (currentPage.protocol+"//"+currentPage.hostname + currentPage.pathname)+str;
                     URLlink = txtWebsite.value;
                     recapREDLink.innerHTML = REDlink;
                     recapURL.innerHTML = URLlink;
@@ -273,7 +273,7 @@ btnRegister.addEventListener("click", ()=>{
 
                     if(signedIn){
                         firebase.database().ref(str).set({
-                            url: recapURL,
+                            url: URLlink,
                             user: userID
                         }, function(error) {
                             if (error) {
