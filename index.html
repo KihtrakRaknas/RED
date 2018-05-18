@@ -26,14 +26,17 @@
                 <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="btnDash" href="#">Dashboard<span class="d-md-none" id= "dashSignInReq"> (launch sign in)</span></a>
+                <a class="nav-link" id="btnDash" href="#">Dashboard<span class="d-md-none" id="dashSignInReq">(Requires Sign In)</span></a>
+              </li>
+              <li class="nav-item d-md-none" style="display: none" id="SignOutMobileNav">
+                <a class="nav-link" id="btnSignOutMobile" href="#">Sign Out</a>
               </li>
             </ul>
             </div>
             <div class="ml-auto d-none d-md-block">
                  <form class="form-inline" onsubmit="return!1">
 
-                    <button id="btnActiveLogin" class="btn btn-secondary btn-outline-secondary">Log in</button>
+                    <button id="btnActiveLogin" class="btn btn-secondary btn-outline-secondary">Log In</button>
 
                     <button id="btnActiveSignUp" class="btn btn-primary btn-outline-primary">Sign Up</button>
 
@@ -55,7 +58,7 @@
 
             <input id="txtPassword" class="form-control" type="password" placeholder="Password">
 
-            <button id="btnLogin" class="btn btn-light">Log in</button>
+            <button id="btnLogin" class="btn btn-light">Log In</button>
 
             <button id="btnSignUp" class="btn btn-primary">Sign Up</button>
 

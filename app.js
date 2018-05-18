@@ -11,6 +11,9 @@ var btnActiveSignUp = document.getElementById("btnActiveSignUp");
 var btnSignUpWithGoogle2 = document.getElementById("btnSignUpWithGoogle2");
 var btnSignOut = document.getElementById("btnSignOut");
 
+var btnSignOutMobile = document.getElementById("btnSignOutMobile");
+var SignOutMobileNav = document.getElementById("SignOutMobileNav");
+
 var btnDash = document.getElementById("btnDash");
 
 var txtWebsite = document.getElementById("txtWebsite");
@@ -73,9 +76,10 @@ firebase.auth().onAuthStateChanged(function(user) {
       signedIn = true;
       btnActiveLogin.style.display = "none";
       btnActiveSignUp.style.display = "none";
-dashSignInReq.style.display = "none";
       btnSignUpWithGoogle2.style.display = "none";
       btnSignOut.style.display = "block";
+      dashSignInReq.style.display = "none";
+      SignOutMobileNav.style.display = "block";
       console.log(user);
       $("#signInForm").slideUp();
   } else {
@@ -84,9 +88,9 @@ dashSignInReq.style.display = "none";
       btnActiveLogin.style.display = "block";
       btnActiveSignUp.style.display = "block";
       btnSignUpWithGoogle2.style.display = "block";
-
       btnSignOut.style.display = "none";
-dashSignInReq.style.display = "block";
+      dashSignInReq.style.display = "block";
+      SignOutMobileNav.style.display = "none";
   }
 });
 
@@ -139,6 +143,10 @@ btnActiveSignUp.addEventListener("click", ()=>{
 
 
 btnSignOut.addEventListener("click", ()=>{
+    firebase.auth().signOut();
+});
+
+btnSignOutMobile.addEventListener("click", ()=>{
     firebase.auth().signOut();
 });
 
