@@ -7,6 +7,15 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+      
+      <style>
+        table{
+            table-layout: fixed;
+        }
+        td{
+            word-wrap:break-word
+        }
+      </style>
     <title>REDirector</title>
   </head>
   <body>
@@ -41,8 +50,24 @@
 	</nav>
       
       <div class="alert alert-danger" id="logFailedAlert" style="display:none"><strong>You need to Sign In to access this page!</strong> <a href = "RED"></a></div>
-      
-      
+      <table class="table" id="RED&URLtable">
+          <thead>
+            <tr>
+              <th scope="col">REDurl</th>
+              <th scope="col">URL</th>
+            </tr>
+          </thead>
+        <tbody>
+            <tr>
+              <td>RED</td>
+              <td>URL</td>
+            </tr>
+            <tr>
+              <td>RED</td>
+              <td>URL</td>
+            </tr>
+        </tbody>
+      </table>
       
       
     <!-- Optional JavaScript -->
@@ -54,13 +79,31 @@
     <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase.js"></script>
 	  <script>
           firebase.initializeApp({apiKey: "AIzaSyBpAWpSB1sSjuV1qR8woZoamGVonMgYN_Y",authDomain: "red-irector.firebaseapp.com",databaseURL: "https://red-irector.firebaseio.com",projectId: "red-irector",storageBucket: "red-irector.appspot.com",messagingSenderId: "578371314492"});
+          
+          var table = document.getElementById("RED&URLtable");
+            firebase.database().ref().on('value', function(snap) {
+                var obj = snap.val();
+                  for (var p in obj) {
+                    if( obj.hasOwnProperty(p) ) {
+                        console.log(obj[p]["user"]);
+                        console.log(obj[p]);
+                        if(obj[p]["user"]=="EpHSNBKoP5dpzwWib3frn9qqANx1"){
+                            var row = table.insertRow(-1);
+                            row.insertCell(0).innerHTML = p;
+                            row.insertCell(1).innerHTML = obj[p]["url"];
+                        }
+                      //result += p + " , " + obj[p] + "\n";
+                    } 
+                  }  
+                
+          });
           firebase.auth().onAuthStateChanged(function(user) {
               if(user){
                   document.getElementById("btnSignOut").style.display = "block";
                   document.getElementById("btnSignOutMobile").style.display = "block";
+
               }else{
                   $("#logFailedAlert").slideDown();
-                  
               }
           });
       
