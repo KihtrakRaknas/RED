@@ -221,7 +221,7 @@ txtREDurl.addEventListener("change", ()=>{
 
 function recaper(){
         if(validURL&&validRED){
-        var str = new URL("http://"+txtREDurl.value).hostname;
+        var str = new URL("http://example.com/"+txtREDurl.value).pathname.substring(1);
          try{
             //CANT RETURN STUFF HERE
             firebase.database().ref(str+"/user").once('value').then(function(snapshot) {
@@ -257,8 +257,8 @@ function recaper(){
 var successREDurl = document.getElementById("successREDurl");
 var successURL = document.getElementById("successURL");
 btnRegister.addEventListener("click", ()=>{
-    if(checkWeb(txtWebsite.value)&&checkREDurl(new URL("http://"+txtREDurl.value).hostname)){
-        var str = new URL("http://"+txtREDurl.value).hostname;
+    if(checkWeb(txtWebsite.value)&&checkREDurl(new URL("http://example.com/"+txtREDurl.value).pathname.substring(1))){
+        var str = new URL("http://example.com/"+txtREDurl.value).pathname.substring(1);
          try{
             //CANT RETURN STUFF HERE
             firebase.database().ref(str+"/user").once('value').then(function(snapshot) {
@@ -349,7 +349,6 @@ invalidURL.addEventListener("click", function(e){
         recaper();
     }
 },true);
-
 var REDurlSuggestion = document.getElementById("REDurlSuggestion");
 function checkREDurl(str){
     if(str == ""){
@@ -360,7 +359,7 @@ function checkREDurl(str){
         REDurlSuggestion.innerHTML = "REDurl can't contain \".\", \"#\", \"$\", \"/\", \"[\", or \"]\"";
         $("#invalidREDurl").slideDown();
         return false;
-    }else if(new URL("http://"+str).hostname.length >=200){
+    }else if(new URL("http://example.com/"+str).pathname.length >=201){ //The / at the start is included
         REDurlSuggestion.innerHTML = "REDurls shouldn't be longer than 200 characters";
         $("#invalidREDurl").slideDown();
         return false;
