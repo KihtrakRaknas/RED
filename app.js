@@ -257,7 +257,7 @@ function recaper(){
 var successREDurl = document.getElementById("successREDurl");
 var successURL = document.getElementById("successURL");
 btnRegister.addEventListener("click", ()=>{
-    if(checkWeb(txtWebsite.value)&&checkREDurl(txtREDurl.value){
+    if(checkWeb(txtWebsite.value)&&checkREDurl(txtREDurl.value)){
         var str = new URL("http://example.com/"+txtREDurl.value).pathname.substring(1).toLowerCase();
          try{
             //CANT RETURN STUFF HERE
