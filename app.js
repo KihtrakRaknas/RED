@@ -209,18 +209,19 @@ txtWebsite.addEventListener("change", ()=>{
 });
 
 $("#txtREDurl").keyup(function() {
-    validRED = checkREDurl(txtREDurl.value.toLowerCase());
+    validRED = checkREDurl(txtREDurl.value);
     recaper();
 });
 
 txtREDurl.addEventListener("change", ()=>{
-    validRED = checkREDurl(txtREDurl.value.toLowerCase());
+    validRED = checkREDurl(txtREDurl.value);
     recaper();
 });
 
+
 function recaper(){
         if(validURL&&validRED){
-        var str = txtREDurl.value.toLowerCase();
+        var str = new URL("http://"+txtREDurl.value).hostname;
          try{
             //CANT RETURN STUFF HERE
             firebase.database().ref(str+"/user").once('value').then(function(snapshot) {
@@ -228,10 +229,10 @@ function recaper(){
                     $("#invalidREDurl").slideUp();
         
                     if((currentPage.protocol+"//"+currentPage.hostname + currentPage.pathname).includes("index.html"))
-                        REDlink = (currentPage.protocol+"//"+currentPage.hostname + currentPage.pathname).substring(0,(currentPage.hostname + currentPage.pathname).indexOf("index.html"))+str;
+                        REDlink = (currentPage.protocol+"//"+currentPage.hostname + currentPage.pathname).substring(0,(currentPage.protocol+"//"+currentPage.hostname + currentPage.pathname).indexOf("index.html"))+str;
                     else   
                         REDlink = (currentPage.protocol+"//"+currentPage.hostname + currentPage.pathname)+str;
-                    URLlink = txtWebsite.value;
+                    URLlink = new URL(txtWebsite.value).href;
                     recapREDLink.innerHTML = REDlink;
                     recapURL.innerHTML = URLlink;
                     recapURL.href = URLlink;
@@ -256,8 +257,8 @@ function recaper(){
 var successREDurl = document.getElementById("successREDurl");
 var successURL = document.getElementById("successURL");
 btnRegister.addEventListener("click", ()=>{
-    if(checkWeb(txtWebsite.value)&&checkREDurl(txtREDurl.value.toLowerCase())){
-        var str = txtREDurl.value.toLowerCase();
+    if(checkWeb(txtWebsite.value)&&checkREDurl(new URL("http://"+txtREDurl.value).hostname)){
+        var str = new URL("http://"+txtREDurl.value).hostname;
          try{
             //CANT RETURN STUFF HERE
             firebase.database().ref(str+"/user").once('value').then(function(snapshot) {
@@ -265,10 +266,10 @@ btnRegister.addEventListener("click", ()=>{
                     $("#invalidREDurl").slideUp();
         
                     if((currentPage.protocol+"//"+currentPage.hostname + currentPage.pathname).includes("index.html"))
-                        REDlink = (currentPage.protocol+"//"+currentPage.hostname + currentPage.pathname).substring(0,(currentPage.hostname + currentPage.pathname).indexOf("index.html"))+str;
+                        REDlink = (currentPage.protocol+"//"+currentPage.hostname + currentPage.pathname).substring(0,(currentPage.protocol+"//"+currentPage.hostname + currentPage.pathname).indexOf("index.html"))+str;
                     else   
                         REDlink = (currentPage.protocol+"//"+currentPage.hostname + currentPage.pathname)+str;
-                    URLlink = txtWebsite.value;
+                    URLlink = new URL(txtWebsite.value).href;
                     recapREDLink.innerHTML = REDlink;
                     recapURL.innerHTML = URLlink;
                     recapURL.href = URLlink;
@@ -357,6 +358,10 @@ function checkREDurl(str){
         return false;
     }else if(str.includes(".")||str.includes("#")||str.includes("$")||str.includes("/")||str.includes("[")||str.includes("]")){
         REDurlSuggestion.innerHTML = "REDurl can't contain \".\", \"#\", \"$\", \"/\", \"[\", or \"]\"";
+        $("#invalidREDurl").slideDown();
+        return false;
+    }else if(new URL("http://"+str).hostname.length >=200){
+        REDurlSuggestion.innerHTML = "REDurls shouldn't be longer than 200 characters";
         $("#invalidREDurl").slideDown();
         return false;
     }else{
