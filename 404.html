@@ -10,7 +10,7 @@ permalink: /404.html
         firebase.initializeApp({apiKey: "AIzaSyBpAWpSB1sSjuV1qR8woZoamGVonMgYN_Y",authDomain: "red-irector.firebaseapp.com",databaseURL: "https://red-irector.firebaseio.com",projectId: "red-irector",storageBucket: "red-irector.appspot.com",messagingSenderId: "578371314492"});
         console.log(window.location.pathname.substring(window.location.pathname.lastIndexOf("/")+1));
         try{
-            firebase.database().ref(window.location.pathname.substring(window.location.pathname.lastIndexOf("/")+1).toLowerCase()+"/url").once('value').then(function(snapshot) {
+            firebase.database().ref(new URL(window.location).pathname.substring(window.location.pathname.lastIndexOf("/")+1).toLowerCase()+"/url").once('value').then(function(snapshot) {
                 try {
                     var testURL = new URL(snapshot.val());
                     window.location.replace(testURL);
