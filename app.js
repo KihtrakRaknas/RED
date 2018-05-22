@@ -221,7 +221,7 @@ txtREDurl.addEventListener("change", ()=>{
 
 function recaper(){
         if(validURL&&validRED){
-        var str = new URL("http://example.com/"+txtREDurl.value).pathname.substring(1);
+        var str = new URL("http://example.com/"+txtREDurl.value).pathname.substring(1).toLowerCase();
          try{
             //CANT RETURN STUFF HERE
             firebase.database().ref(str+"/user").once('value').then(function(snapshot) {
@@ -257,8 +257,8 @@ function recaper(){
 var successREDurl = document.getElementById("successREDurl");
 var successURL = document.getElementById("successURL");
 btnRegister.addEventListener("click", ()=>{
-    if(checkWeb(txtWebsite.value)&&checkREDurl(new URL("http://example.com/"+txtREDurl.value).pathname.substring(1))){
-        var str = new URL("http://example.com/"+txtREDurl.value).pathname.substring(1);
+    if(checkWeb(txtWebsite.value)&&checkREDurl(txtREDurl.value){
+        var str = new URL("http://example.com/"+txtREDurl.value).pathname.substring(1).toLowerCase();
          try{
             //CANT RETURN STUFF HERE
             firebase.database().ref(str+"/user").once('value').then(function(snapshot) {
