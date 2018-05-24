@@ -15,6 +15,11 @@
         td{
             word-wrap:break-word
         }
+        input {
+            word-wrap: break-word;
+            word-break: break-all;
+            height: 100px;
+        }
       </style>
     <title>REDirector</title>
   </head>
@@ -90,7 +95,10 @@
                         if(obj[p]["user"]=="EpHSNBKoP5dpzwWib3frn9qqANx1"){
                             var row = table.insertRow(-1);
                             row.insertCell(0).innerHTML = p;
-                            row.insertCell(1).innerHTML = obj[p]["url"];
+                            var x = document.createElement("INPUT");
+                            x.setAttribute("type", "url");
+                            x.setAttribute("value", obj[p]["url"]);
+                            row.insertCell(1).appendChild(x);//obj[p]["url"];
                         }
                       //result += p + " , " + obj[p] + "\n";
                     } 
