@@ -117,7 +117,7 @@
                   document.getElementById("logFailedAlert").style.display = "none";
                     firebase.database().ref().on('value', function(snap) {
                         var obj = snap.val();
-                        while (1!=table.rows.length) {
+                        while (2!=table.rows.length) {
                             table.deleteRow(-1);
                         }
                           for (var p in obj) {
@@ -151,7 +151,7 @@
                                 }
                             } 
                           }  
-
+                        table.deleteRow(-1);
                   });
               }else{
                   $("#logFailedAlert").slideDown();
