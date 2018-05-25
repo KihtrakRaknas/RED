@@ -84,9 +84,9 @@ firebase.auth().onAuthStateChanged(function(user) {
       $("#signInForm").slideUp();
       if(goToDash){
         var redir = currentPage.protocol+"//"+currentPage.hostname + currentPage.pathname
-            if(redir.includes("index.html"))
-                redir = redir.substring(0,(currentPage.hostname + currentPage.pathname).indexOf("index.html"))
-            redir+="dashboard.html";
+            if(redir.lastIndexOf("/")!=-1)
+                redir = redir.substring(0,redir.lastIndexOf("/"));
+            redir+="/dashboard.html";
         window.location.href(redir);
        }
   } else {
@@ -172,13 +172,14 @@ $(document).ready(function() {
 
 var goToDash = false;
 var failedAttempts = 0;
-
+var sterssdsdf = "text13";
+console.log(sterssdsdf.substring(0,sterssdsdf.lastIndexOf("2")));
 btnDash.addEventListener("click", ()=>{
     if(signedIn){
         var redir = currentPage.protocol+"//"+currentPage.hostname + currentPage.pathname
-            if(redir.includes("index.html"))
-                redir = redir.substring(0,(currentPage.hostname + currentPage.pathname).indexOf("index.html"))
-            redir+="dashboard.html";
+            if(redir.lastIndexOf("/")!=-1)
+                redir = redir.substring(0,redir.lastIndexOf("/"));
+            redir+="/dashboard.html";
         window.location.href(redir);
     }else{
         goToDash = true;
