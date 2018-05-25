@@ -86,44 +86,6 @@
           firebase.initializeApp({apiKey: "AIzaSyBpAWpSB1sSjuV1qR8woZoamGVonMgYN_Y",authDomain: "red-irector.firebaseapp.com",databaseURL: "https://red-irector.firebaseio.com",projectId: "red-irector",storageBucket: "red-irector.appspot.com",messagingSenderId: "578371314492"});
           
           var table = document.getElementById("RED&URLtable");
-            firebase.database().ref().on('value', function(snap) {
-                var obj = snap.val();
-                while (1!=table.rows.length) {
-                    table.deleteRow(-1);
-                }
-                  for (var p in obj) {
-                    if( obj.hasOwnProperty(p) ) {
-                        console.log(obj[p]["user"]);
-                        console.log(obj[p]);
-                        if(obj[p]["user"]=="EpHSNBKoP5dpzwWib3frn9qqANx1"){
-                            var row = table.insertRow(-1);
-                            row.insertCell(0).innerHTML = p;
-                            var x = document.createElement("INPUT");
-                            x.setAttribute("type", "url");
-                            x.setAttribute("class", "form-control");
-                            x.setAttribute("value", obj[p]["url"]);
-                            x.setAttribute("data-redurl", p);
-                            x.addEventListener("change", function(str){
-                                if(checkWeb(str.target.value)){
-                                    console.log(str.target.dataset.redurl);
-                                    firebase.database().ref(str.target.dataset.redurl).update({
-                                        url: (new URL(str.target.value).href)
-                                    }, function(error) {
-                                        if (error) {
-                                                console.log(error);
-                                                $("#errorURL").slideDown().delay(3000).slideUp();
-                                        } else {
-                                            $("#validURL").slideDown().delay(3000).slideUp();
-                                        }
-                                    });
-                                }
-                            });
-                            row.insertCell(1).appendChild(x);//obj[p]["url"];
-                        }
-                    } 
-                  }  
-                
-          });//urlchanged(x.value)
             function checkWeb(str){
                 if(str.substring(0,7)!="http://" && str.substring(0,8)!="https://"){
                         console.log(str.substring(0,7));
@@ -153,6 +115,44 @@
                   document.getElementById("btnSignOutMobile").style.display = "block";
                   document.getElementById("RED&URLtable").style.display = "block";
                   document.getElementById("logFailedAlert").style.display = "none";
+                    firebase.database().ref().on('value', function(snap) {
+                        var obj = snap.val();
+                        while (1!=table.rows.length) {
+                            table.deleteRow(-1);
+                        }
+                          for (var p in obj) {
+                            if( obj.hasOwnProperty(p) ) {
+                                console.log(obj[p]["user"]);
+                                console.log(obj[p]);
+                                if(obj[p]["user"]==user){
+                                    var row = table.insertRow(-1);
+                                    row.insertCell(0).innerHTML = p;
+                                    var x = document.createElement("INPUT");
+                                    x.setAttribute("type", "url");
+                                    x.setAttribute("class", "form-control");
+                                    x.setAttribute("value", obj[p]["url"]);
+                                    x.setAttribute("data-redurl", p);
+                                    x.addEventListener("change", function(str){
+                                        if(checkWeb(str.target.value)){
+                                            console.log(str.target.dataset.redurl);
+                                            firebase.database().ref(str.target.dataset.redurl).update({
+                                                url: (new URL(str.target.value).href)
+                                            }, function(error) {
+                                                if (error) {
+                                                        console.log(error);
+                                                        $("#errorURL").slideDown().delay(3000).slideUp();
+                                                } else {
+                                                    $("#validURL").slideDown().delay(3000).slideUp();
+                                                }
+                                            });
+                                        }
+                                    });
+                                    row.insertCell(1).appendChild(x);//obj[p]["url"];
+                                }
+                            } 
+                          }  
+
+                  });
               }else{
                   $("#logFailedAlert").slideDown();
                   document.getElementById("RED&URLtable").style.display = "none";
