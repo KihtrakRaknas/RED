@@ -82,7 +82,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   
     <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase.js"></script>
-	  <script>
+	  <!--<script>
           firebase.initializeApp({apiKey: "AIzaSyBpAWpSB1sSjuV1qR8woZoamGVonMgYN_Y",authDomain: "red-irector.firebaseapp.com",databaseURL: "https://red-irector.firebaseio.com",projectId: "red-irector",storageBucket: "red-irector.appspot.com",messagingSenderId: "578371314492"});
           
           var table = document.getElementById("RED&URLtable");
@@ -117,7 +117,7 @@
                   document.getElementById("logFailedAlert").style.display = "none";
                     firebase.database().ref().on('value', function(snap) {
                         var obj = snap.val();
-                        while (2!=table.rows.length) {
+                        while (1!=table.rows.length) {
                             table.deleteRow(-1);
                         }
                           for (var p in obj) {
@@ -151,7 +151,7 @@
                                 }
                             } 
                           }  
-                        table.deleteRow(-1);
+
                   });
               }else{
                   $("#logFailedAlert").slideDown();
@@ -167,6 +167,6 @@
             document.getElementById("btnSignOutMobile").addEventListener("click", ()=>{
                 firebase.auth().signOut();
             });
-      </script>
+      </script>-->
   </body>
 </html>
