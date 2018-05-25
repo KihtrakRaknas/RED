@@ -170,7 +170,11 @@ var failedAttempts = 0;
 
 btnDash.addEventListener("click", ()=>{
     if(signedIn){
-        console.log("GO TO PAGE");
+        var redir = currentPage.protocol+"//"+currentPage.hostname + currentPage.pathname
+            if(redir.includes("index.html"))
+                redir = redir.substring(0,(currentPage.hostname + currentPage.pathname).indexOf("index.html"))
+            redir+="dashboard.html";
+        window.location.href(redir);
     }else{
         goToDash = true;
         console.log(signInFormForm.style.display);
