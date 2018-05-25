@@ -158,7 +158,13 @@
                   document.getElementById("RED&URLtable").style.display = "none";
               }
           });
-      
+            document.getElementById("btnSignOut").addEventListener("click", ()=>{
+                firebase.auth().signOut();
+            });
+
+            document.getElementById("btnSignOutMobile").addEventListener("click", ()=>{
+                firebase.auth().signOut();
+            });
       </script>
   </body>
 </html>

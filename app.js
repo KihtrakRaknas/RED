@@ -82,8 +82,13 @@ firebase.auth().onAuthStateChanged(function(user) {
       SignOutMobileNav.style.display = "block";
       console.log(user);
       $("#signInForm").slideUp();
-      if(goToDash)
-          console.log("GOTODASH");
+      if(goToDash){
+        var redir = currentPage.protocol+"//"+currentPage.hostname + currentPage.pathname
+            if(redir.includes("index.html"))
+                redir = redir.substring(0,(currentPage.hostname + currentPage.pathname).indexOf("index.html"))
+            redir+="dashboard.html";
+        window.location.href(redir);
+       }
   } else {
       signedIn = false;
       console.log("NOT SIGNED IN");
