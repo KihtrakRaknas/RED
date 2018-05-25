@@ -15,11 +15,6 @@
         td{
             word-wrap:break-word
         }
-        input {
-            word-wrap: break-word;
-            word-break: break-all;
-            height: 100px;
-        }
       </style>
     <title>REDirector</title>
   </head>
@@ -54,8 +49,8 @@
         
 	</nav>
       
-      <div class="alert alert-danger" id="logFailedAlert" style="display:none"><strong>You need to Sign In to access this page!</strong> <a href = "RED"></a></div>
-      <table class="table" id="RED&URLtable">
+      <div class="alert alert-danger" id="logFailedAlert" style="display:none"><strong>You need to Sign In to access this page!</strong> <a href = "index.html"></a></div>
+      <table class="table" id="RED&URLtable" style="display:none">
           <thead>
             <tr>
               <th scope="col">REDurl</th>
@@ -64,16 +59,21 @@
           </thead>
         <tbody>
             <tr>
-              <td>RED</td>
-              <td>URL</td>
+              <td>Your</td>
+              <td>URLs</td>
             </tr>
             <tr>
-              <td>RED</td>
-              <td>URL</td>
+              <td>Should render</td>
+              <td>Here shortly</td>
             </tr>
         </tbody>
       </table>
       
+      <div class="alert alert-warning" id="invalidURL" style="display:none;position: fixed;bottom: 0;width:100%;"><strong>Invalid URL!</strong> The URL you entered was invalid. <em id="urlSuggestion"></em></div>
+
+    <div class="alert alert-success" id="validURL" style="display:none;position: fixed;bottom: 0; width:100%;"><strong>Success!</strong> The URL was updated</div>
+      
+    <div class="alert alert-danger" id="errorURL" style="display:none;position: fixed;bottom: 0; width:100%;"><strong>Something Went Wrong!</strong> Try refreshing the page</div>
       
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -88,6 +88,9 @@
           var table = document.getElementById("RED&URLtable");
             firebase.database().ref().on('value', function(snap) {
                 var obj = snap.val();
+                while (1!=table.rows.length) {
+                    table.deleteRow(-1);
+                }
                   for (var p in obj) {
                     if( obj.hasOwnProperty(p) ) {
                         console.log(obj[p]["user"]);
@@ -97,21 +100,62 @@
                             row.insertCell(0).innerHTML = p;
                             var x = document.createElement("INPUT");
                             x.setAttribute("type", "url");
+                            x.setAttribute("class", "form-control");
                             x.setAttribute("value", obj[p]["url"]);
+                            x.setAttribute("data-redurl", p);
+                            x.addEventListener("change", function(str){
+                                if(checkWeb(str.target.value)){
+                                    console.log(str.target.dataset.redurl);
+                                    firebase.database().ref(str.target.dataset.redurl).update({
+                                        url: (new URL(str.target.value).href)
+                                    }, function(error) {
+                                        if (error) {
+                                                console.log(error);
+                                                $("#errorURL").slideDown().delay(3000).slideUp();
+                                        } else {
+                                            $("#validURL").slideDown().delay(3000).slideUp();
+                                        }
+                                    });
+                                }
+                            });
                             row.insertCell(1).appendChild(x);//obj[p]["url"];
                         }
-                      //result += p + " , " + obj[p] + "\n";
                     } 
                   }  
                 
-          });
+          });//urlchanged(x.value)
+            function checkWeb(str){
+                if(str.substring(0,7)!="http://" && str.substring(0,8)!="https://"){
+                        console.log(str.substring(0,7));
+                        console.log("http://");
+                        urlSuggestion.innerHTML= "Try adding http:// to your url.";
+                        $("#validURL").slideUp();
+                        $("#invalidURL").slideDown();
+                        return false;
+                }else{
+                    try {
+                        var testURL = new URL(str);
+                        $("#invalidURL").slideUp();
+                        console.log("WEBPASS");
+                        return true;
+                    }catch(error){
+                        console.log(error);
+                            urlSuggestion.innerHTML= "";
+                        $("#validURL").slideUp();
+                            $("#invalidURL").slideDown();
+                            return false;
+                    }
+                }
+            }
           firebase.auth().onAuthStateChanged(function(user) {
               if(user){
                   document.getElementById("btnSignOut").style.display = "block";
                   document.getElementById("btnSignOutMobile").style.display = "block";
-
+                  document.getElementById("RED&URLtable").style.display = "block";
+                  document.getElementById("logFailedAlert").style.display = "none";
               }else{
                   $("#logFailedAlert").slideDown();
+                  document.getElementById("RED&URLtable").style.display = "none";
               }
           });
       
