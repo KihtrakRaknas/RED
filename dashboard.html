@@ -50,7 +50,7 @@
 	</nav>
       
       <div class="alert alert-danger" id="logFailedAlert" style="display:none"><strong>You need to Sign In to access this page!</strong> <a href = "index.html?test=test">Click Here to go back to the sign in page.</a></div>
-      <table class="table" id="RED&URLtable">
+      <table class="table" id="RED&URLtable" style="display:none">
           <thead>
             <tr>
               <th scope="col">REDurl</th>
@@ -82,7 +82,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   
     <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase.js"></script>
-	  <!--<script>
+	  <script>
           firebase.initializeApp({apiKey: "AIzaSyBpAWpSB1sSjuV1qR8woZoamGVonMgYN_Y",authDomain: "red-irector.firebaseapp.com",databaseURL: "https://red-irector.firebaseio.com",projectId: "red-irector",storageBucket: "red-irector.appspot.com",messagingSenderId: "578371314492"});
           
           var table = document.getElementById("RED&URLtable");
@@ -113,7 +113,7 @@
               if(user){
                   document.getElementById("btnSignOut").style.display = "block";
                   document.getElementById("btnSignOutMobile").style.display = "block";
-                  document.getElementById("RED&URLtable").style.display = "block";
+                  table.style.display = "table";
                   document.getElementById("logFailedAlert").style.display = "none";
                     firebase.database().ref().on('value', function(snap) {
                         var obj = snap.val();
@@ -167,6 +167,6 @@
             document.getElementById("btnSignOutMobile").addEventListener("click", ()=>{
                 firebase.auth().signOut();
             });
-      </script>-->
+      </script>
   </body>
 </html>
