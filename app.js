@@ -87,7 +87,7 @@ firebase.auth().onAuthStateChanged(function(user) {
             if(redir.lastIndexOf("/")!=-1)
                 redir = redir.substring(0,redir.lastIndexOf("/"));
             redir+="/dashboard.html";
-        window.location.href(redir);
+        window.location.href = redir ;
        }
   } else {
       signedIn = false;
@@ -180,7 +180,7 @@ btnDash.addEventListener("click", ()=>{
             if(redir.lastIndexOf("/")!=-1)
                 redir = redir.substring(0,redir.lastIndexOf("/"));
             redir+="/dashboard.html";
-        window.location.href(redir);
+        window.location.href = redir;
     }else{
         goToDash = true;
         console.log(signInFormForm.style.display);
