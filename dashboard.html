@@ -124,7 +124,7 @@
                             if( obj.hasOwnProperty(p) ) {
                                 console.log(obj[p]["user"]);
                                 console.log(user);
-                                if(obj[p]["user"]==user){
+                                if(obj[p]["user"]==user.uid){
                                     var row = table.insertRow(-1);
                                     row.insertCell(0).innerHTML = p;
                                     var x = document.createElement("INPUT");
