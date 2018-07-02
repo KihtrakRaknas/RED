@@ -167,6 +167,10 @@ $(document).ready(function() {
             txtREDurl.value = window.location.search.substring(1).split("&")[i].split("=")[1];
         else if(window.location.search.substring(1).split("&")[i].split("=")[0]=="url")
             txtWebsite.value = window.location.search.substring(1).split("&")[i].split("=")[1];
+        else if(window.location.search.substring(1).split("&")[i].split("=")[0]=="action" && window.location.search.substring(1).split("&")[i].split("=")[1]=="signIn"){
+            goToDash=true;
+            $("#signInForm").slideDown();
+        }
     }
     if((currentPage.hostname + currentPage.pathname).includes("index.html"))
         txtREDurl.placeholder = "REDurl: The text after " + (currentPage.hostname + currentPage.pathname).substring(0,(currentPage.hostname + currentPage.pathname).indexOf("index.html"));
