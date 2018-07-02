@@ -189,6 +189,7 @@ btnDash.addEventListener("click", ()=>{
         window.location.href = redir;
     }else{
         goToDash = true;
+        addPara("action", "signIn")
         console.log(signInFormForm.style.display);
         if(signInForm.style.display == "none")
             dropAllOfSignIn();
@@ -234,17 +235,47 @@ txtREDurl.addEventListener("change", ()=>{
     recaper();
 });
 
+function addPara(para1, para2){
+    console.log(para1);
+    console.log(para2+"test");
+    var found = false;
+    var tempurl="";
+    console.log(tempurl+"100");
+    for(var i in window.location.search.substring(1).split("&")){
+        console.log(i);
+        if(window.location.search.substring(1).split("&")[i].split("=")[0]==para1){
+            if(tempurl== "")
+                tempurl += window.location.search.substring(1).split("&")[i].split("=")[0]+"="+para2;
+            else   
+                tempurl += "&"+window.location.search.substring(1).split("&")[i].split("=")[0]+"="+para2;
+            found = true;
+            console.log(tempurl+"1");
+        }else{
+            if(tempurl== ""){
+                tempurl += window.location.search.substring(1).split("&")[i];
+                 console.log(tempurl+"2");
+            }else{
+                tempurl +="&"+window.location.search.substring(1).split("&")[i];
+                 console.log(tempurl+"3");
+            }
+        }
+    }
+    console.log(window.location.search.substring(1).split("&").length);
+    if(!found){
+        if(window.location.search.substring(1).length >0)
+            tempurl += "&"+para1+"="+para2;
+        else   
+            tempurl += para1+"="+para2;
+    }
+    history.replaceState( {} , 'foo', "?"+tempurl );
+}
 
 function recaper(){
-    var urlpara = /*currentPage.protocol+"//"+currentPage.hostname + currentPage.pathname.split("?")[0]+*/"?";
-    if(txtWebsite.value){
-        urlpara += "url="+txtWebsite.value;
-        if(txtREDurl.value)
-            urlpara += "&REDurl="+txtREDurl.value;
-    }else if(txtREDurl.value){
-        urlpara += "REDurl="+txtREDurl.value;
-    }
-    history.replaceState( {} , 'foo', urlpara );
+    if(txtWebsite.value)
+        addPara("url",txtWebsite.value);
+    if(txtREDurl.value)
+        addPara("REDurl",txtREDurl.value);
+    
         if(validURL&&validRED){
         var str = new URL("http://example.com/"+txtREDurl.value).pathname.substring(1).toLowerCase();
          try{
