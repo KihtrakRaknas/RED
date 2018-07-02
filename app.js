@@ -23,7 +23,6 @@ var btnRegister = document.getElementById("btnRegister");
 var dashSignInReq = document.getElementById("dashSignInReq");
 
 btnLogin.addEventListener("click", ()=>{
-    console.log("TEST");
     const email = txtEmail.value
     const password = txtPassword.value
     const promise = firebase.auth().signInWithEmailAndPassword(email, password);
@@ -162,8 +161,12 @@ var txtREDurl = document.getElementById("txtREDurl");
 var currentPage = new URL(window.location.href);
 
 $(document).ready(function() {
-    if(window.location.search.substring(1).split("=")[0]=="redURL")
-        txtREDurl.value = window.location.search.substring(1).split("=")[1];
+    for(var query in window.location.search.substring(1).split("&")){
+        if(query.split("=")[0]=="redURL")
+            txtREDurl.value = query.split("=")[1];
+        else if(query.split("=")[0]=="URL")
+            txtWebsite.value = query.split("=")[1];
+    }
     if((currentPage.hostname + currentPage.pathname).includes("index.html"))
         txtREDurl.placeholder = "REDurl: The text after " + (currentPage.hostname + currentPage.pathname).substring(0,(currentPage.hostname + currentPage.pathname).indexOf("index.html"));
     else   
@@ -172,11 +175,9 @@ $(document).ready(function() {
 
 var goToDash = false;
 var failedAttempts = 0;
-var sterssdsdf = "text13";
-console.log(sterssdsdf.substring(0,sterssdsdf.lastIndexOf("2")));
 btnDash.addEventListener("click", ()=>{
     if(signedIn){
-        var redir = currentPage.protocol+"//"+currentPage.hostname + currentPage.pathname
+        var redir = currentPage.protocol+"//"+currentPage.hostname + currentPage.pathname;
             if(redir.lastIndexOf("/")!=-1)
                 redir = redir.substring(0,redir.lastIndexOf("/"));
             redir+="/dashboard.html";
@@ -230,6 +231,15 @@ txtREDurl.addEventListener("change", ()=>{
 
 
 function recaper(){
+    var urlpara = /*currentPage.protocol+"//"+currentPage.hostname + currentPage.pathname.split("?")[0]+*/"?";
+    if(txtWebsite.value){
+        urlpara += "url="+txtWebsite.value;
+        if(txtREDurl.value)
+            urlpara += "&REDurl="+txtREDurl.value;
+    }else if(txtREDurl.value){
+        urlpara += "REDurl="+txtREDurl.value;
+    }
+    history.replaceState( {} , 'foo', urlpara );
         if(validURL&&validRED){
         var str = new URL("http://example.com/"+txtREDurl.value).pathname.substring(1).toLowerCase();
          try{
@@ -330,8 +340,6 @@ var autoAdd = false;
 function checkWeb(str){
     autoAdd = false;
     if(str.substring(0,7)!="http://" && str.substring(0,8)!="https://"){
-            console.log(str.substring(0,7));
-            console.log("http://");
             urlSuggestion.innerHTML= "Try adding http:// to your url. Click here to automatically add it";
             autoAdd = true;
             $("#invalidURL").slideDown();
