@@ -161,11 +161,12 @@ var txtREDurl = document.getElementById("txtREDurl");
 var currentPage = new URL(window.location.href);
 
 $(document).ready(function() {
-    for(var query in window.location.search.substring(1).split("&")){
-        if(query.split("=")[0]=="redURL")
-            txtREDurl.value = query.split("=")[1];
-        else if(query.split("=")[0]=="URL")
-            txtWebsite.value = query.split("=")[1];
+    for(var i in window.location.search.substring(1).split("&")){
+        console.log(window.location.search.substring(1).split("&")[i].split("=")[0]);
+        if(window.location.search.substring(1).split("&")[i].split("=")[0]=="REDurl")
+            txtREDurl.value = window.location.search.substring(1).split("&")[i].split("=")[1];
+        else if(window.location.search.substring(1).split("&")[i].split("=")[0]=="url")
+            txtWebsite.value = window.location.search.substring(1).split("&")[i].split("=")[1];
     }
     if((currentPage.hostname + currentPage.pathname).includes("index.html"))
         txtREDurl.placeholder = "REDurl: The text after " + (currentPage.hostname + currentPage.pathname).substring(0,(currentPage.hostname + currentPage.pathname).indexOf("index.html"));
