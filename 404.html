@@ -14,16 +14,28 @@ permalink: /404.html
                 try {
                     var testURL = new URL(snapshot.val());
                     window.location.replace(testURL);
-                    document.addEventListener("DOMContentLoaded", function() {
+                    if (document.readyState == "interactive") {
                         var urlEle = document.getElementById("url");
                         var websiteUrlEle = document.getElementById("weburls");
                         urlEle.innerHTML = testURL;
                         urlEle.setAttribute("href", testURL);
                         websiteUrlEle.setAttribute("href", testURL);
                         websiteUrlEle.innerHTML = websiteUrlEle.hostname;
-                    });
+                    }else{
+                    	document.onreadystatechange = function () {
+                    		//Exact same code from above
+						    if (document.readyState == "interactive") {
+								var urlEle = document.getElementById("url");
+								var websiteUrlEle = document.getElementById("weburls");
+								urlEle.innerHTML = testURL;
+								urlEle.setAttribute("href", testURL);
+								websiteUrlEle.setAttribute("href", testURL);
+								websiteUrlEle.innerHTML = websiteUrlEle.hostname;
+						    }
+						}
+                    }
                 }catch(error){
-                    document.addEventListener("DOMContentLoaded", function() {
+                    if (document.readyState == "interactive") {
                         if(snapshot.val()==undefined){
                             document.getElementById("noneUrl").style.display = "block";
                             document.getElementById("yesUrl").style.display = "none";
@@ -32,7 +44,21 @@ permalink: /404.html
                             document.getElementById("yesUrl").style.display = "none";
                             document.getElementById("failedUrl").innerHTML = snapshot.val();
                         }
-                    });
+                    }else{
+						document.onreadystatechange = function () {
+							//Exact same code from above
+							if (document.readyState == "interactive") {
+								if(snapshot.val()==undefined){
+									document.getElementById("noneUrl").style.display = "block";
+									document.getElementById("yesUrl").style.display = "none";
+								}else{
+									document.getElementById("noUrl").style.display = "block";
+									document.getElementById("yesUrl").style.display = "none";
+									document.getElementById("failedUrl").innerHTML = snapshot.val();
+								}
+							}
+						}
+                    }
                 }
             });
        }catch(error){
