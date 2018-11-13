@@ -312,6 +312,7 @@ function recaper(){
 }
 var successREDurl = document.getElementById("successREDurl");
 var successURL = document.getElementById("successURL");
+var tinyurlREDlink = document.getElementById("tinyurlREDlink");
 btnRegister.addEventListener("click", ()=>{
     if(checkWeb(txtWebsite.value)&&checkREDurl(txtREDurl.value)){
         var str = new URL("http://example.com/"+txtREDurl.value).pathname.substring(1).toLowerCase();
@@ -344,6 +345,7 @@ btnRegister.addEventListener("click", ()=>{
                                 successREDurl.innerHTML = REDlink;
                                 successREDurl.href = REDlink;
                                 successURL.innerHTML = URLlink;
+                                tinyurlREDlink.value = REDlink;
                             }
                         });
 

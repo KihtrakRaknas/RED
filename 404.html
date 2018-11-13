@@ -6,7 +6,7 @@ permalink: /404.html
   <head>
       <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase.js"></script>
 	  <script>
-          
+
         firebase.initializeApp({apiKey: "AIzaSyBpAWpSB1sSjuV1qR8woZoamGVonMgYN_Y",authDomain: "red-irector.firebaseapp.com",databaseURL: "https://red-irector.firebaseio.com",projectId: "red-irector",storageBucket: "red-irector.appspot.com",messagingSenderId: "578371314492"});
         console.log(window.location.pathname.substring(window.location.pathname.lastIndexOf("/")+1));
         try{
@@ -14,7 +14,7 @@ permalink: /404.html
                 try {
                     var testURL = new URL(snapshot.val());
                     window.location.replace(testURL);
-                    $(document).ready(function() {
+                    document.addEventListener("DOMContentLoaded", function() {
                         var urlEle = document.getElementById("url");
                         var websiteUrlEle = document.getElementById("weburls");
                         urlEle.innerHTML = testURL;
@@ -23,7 +23,7 @@ permalink: /404.html
                         websiteUrlEle.innerHTML = websiteUrlEle.hostname;
                     });
                 }catch(error){
-                    $(document).ready(function() {
+                    document.addEventListener("DOMContentLoaded", function() {
                         if(snapshot.val()==undefined){
                             document.getElementById("noneUrl").style.display = "block";
                             document.getElementById("yesUrl").style.display = "none";
@@ -59,15 +59,11 @@ permalink: /404.html
     <title>REDirector</title>
   </head>
   <body>
-      
-      
-      
-      
+
 		<div class="container rounded-10" style="background-color:grey; border-radius: 20px">
 			<h1 class="text-center" style="font-size:70px; color:#840909;"><span style="color:red">RED</span>irector</h1>
 		</div>
-  	<nav class="navbar navbar-expand-sm sticky-top text-center" style = "margin-top: 0px;">
-	</nav>
+
 		<div id = "yesUrl" class="container">
 			<h2>You are being redirected to <a id = "weburls">a website</a>.</h2>
 			<p>This is supposted to happen instantaneously but if you are currently reading this, you can click the link to be taken there: <kbd><a id = "url">[URL hasn’t been resolved yet]</a></kbd></p>
@@ -82,16 +78,12 @@ permalink: /404.html
              <p>Perhaps it was entered incorrectly.</p>
             <button id = "register" type="button" onclick="createRED()" class="btn btn-success btn-lg">Click Here to register the REDurl</button>
 		</div>
-      
+
       <script>
         function createRED(){
             window.location.assign(window.location.protocol+"//"+window.location.hostname + window.location.pathname.substring(0,window.location.pathname.lastIndexOf("/"))+"?REDurl="+window.location.pathname.substring(window.location.pathname.lastIndexOf("/")+1).toLowerCase());
         }
       </script>
 
-      
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
 </html>

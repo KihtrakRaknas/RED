@@ -95,8 +95,20 @@
       </div>
       
       <div class="container " id = "successMessage" style="background-color: #D4EDDA;border-radius: 30px;display:none;">
-          <h1 class="text-center">Success!</h1>
-          <p>The redURL:<br><a id = "successREDurl"></a><br>will redirect to<br><span id = "successURL"></span><br><br>Note: You can change where your REDurl redirects to in the <a href = "dashboard.html">Dashboard</a></p>
+          <h1 class="text-center display-1">Success!</h1>
+          <p style = "overflow-wrap: break-word; word-wrap: break-word;">The redURL:<br><a id = "successREDurl" ></a><br>will redirect to<br><span id = "successURL"></span><br><br>Note: You can change where your REDurl redirects to in the <a href = "dashboard.html">Dashboard</a></p>
+
+		  <h2 class="text-center display-4">Additional Tools</h1>
+		  <form class="form-inline mb-3 justify-content-center" action="https://tinyurl.com/create.php" method="post" target="_blank">
+		  <input type="text" id="tinyurlREDlink" name="url" value="TESTdfdfdfdfdfTESTTEST" style="display:none">
+			<div class="input-group">
+			  <div class="input-group-prepend">
+				<span class="input-group-text">https://tinyurl.com/</span>
+			  </div>
+			      <input type="text" name="alias" class="form-control mr-2" placeholder="Custom alias (optional)">
+			</div>
+			<button type="submit" name="submit" class="btn btn-primary">Create TinyURL</button>
+		  </form>
       </div>
       
     <!-- Optional JavaScript -->
