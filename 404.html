@@ -4,7 +4,8 @@ permalink: /404.html
 <!doctype html>
 <html lang="en">
   <head>
-      <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase-app.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase-database.js"></script>
 	  <script>
         firebase.initializeApp({apiKey: "AIzaSyBpAWpSB1sSjuV1qR8woZoamGVonMgYN_Y",authDomain: "red-irector.firebaseapp.com",databaseURL: "https://red-irector.firebaseio.com",projectId: "red-irector",storageBucket: "red-irector.appspot.com",messagingSenderId: "578371314492"});
         console.log(window.location.pathname.substring(window.location.pathname.lastIndexOf("/")+1));
@@ -20,6 +21,9 @@ permalink: /404.html
                         urlEle.setAttribute("href", testURL);
                         websiteUrlEle.setAttribute("href", testURL);
                         websiteUrlEle.innerHTML = websiteUrlEle.hostname;
+                        document.getElementById("yesUrl").style.display = "block";
+                        document.getElementById("logo").style.display = "block";
+                        document.getElementById("content").style.display = "none";
                     }else{
                     	document.onreadystatechange = function () {
                     		//Exact same code from above
@@ -30,6 +34,9 @@ permalink: /404.html
 								urlEle.setAttribute("href", testURL);
 								websiteUrlEle.setAttribute("href", testURL);
 								websiteUrlEle.innerHTML = websiteUrlEle.hostname;
+								document.getElementById("yesUrl").style.display = "block";
+								document.getElementById("logo").style.display = "block";
+								document.getElementById("content").style.display = "none";
 						    }
 						}
                     }
@@ -38,10 +45,14 @@ permalink: /404.html
                         if(snapshot.val()==undefined){
                             document.getElementById("noneUrl").style.display = "block";
                             document.getElementById("yesUrl").style.display = "none";
+                            document.getElementById("logo").style.display = "block";
+                            document.getElementById("content").style.display = "none";
                         }else{
                             document.getElementById("noUrl").style.display = "block";
                             document.getElementById("yesUrl").style.display = "none";
                             document.getElementById("failedUrl").innerHTML = snapshot.val();
+                            document.getElementById("logo").style.display = "block";
+                            document.getElementById("content").style.display = "none";
                         }
                     }else{
 						document.onreadystatechange = function () {
@@ -50,10 +61,14 @@ permalink: /404.html
 								if(snapshot.val()==undefined){
 									document.getElementById("noneUrl").style.display = "block";
 									document.getElementById("yesUrl").style.display = "none";
+									document.getElementById("logo").style.display = "block";
+									document.getElementById("content").style.display = "none";
 								}else{
 									document.getElementById("noUrl").style.display = "block";
 									document.getElementById("yesUrl").style.display = "none";
 									document.getElementById("failedUrl").innerHTML = snapshot.val();
+									document.getElementById("logo").style.display = "block";
+									document.getElementById("content").style.display = "none";
 								}
 							}
 						}
@@ -70,6 +85,8 @@ permalink: /404.html
                 document.getElementById("register").classList.add("disabled");
                 document.getElementById("register").classList.remove("btn-success");
                 document.getElementById("register").classList.add("btn-danger");
+                document.getElementById("logo").style.display = "block";
+                document.getElementById("content").style.display = "none";
              }
         //}
        }
@@ -84,16 +101,20 @@ permalink: /404.html
     <title>REDirector</title>
   </head>
   <body>
-
-		<div class="container rounded-10" style="background-color:grey; border-radius: 20px">
+  		<div id="content">
+			<p>Redirecting...</p>
+			<a onclick="more();" href="javascript:void(0);">More</a>
+		</div>
+		<div id="logo" class="container rounded-10" style="background-color:grey; border-radius: 20px" style="display:none">
 			<h1 class="text-center" style="font-size:70px; color:#840909;"><span style="color:red">RED</span>irector</h1>
 		</div>
 
-		<div id = "yesUrl" class="container">
+		<div id = "yesUrl" class="container" style="display:none">
 			<h2>You are being redirected to <a id = "weburls">a website</a>.</h2>
 			<p>This is supposted to happen instantaneously but if you are currently reading this, you can click the link to be taken there: <kbd><a id = "url">[URL hasn’t been resolved yet]</a></kbd></p>
 			<p>If that doesn't work for some reason, you can always just copy and paste the address into an address bar.</p>
 		</div>
+
 	  	<div id ="noUrl" class="container" style="display:none">
 			<h2>The URL you were supposed to be redirected to was not valid.</h2>
 			<p>Here is where the creator of this REDurl wanted you to go: <kbd id="failedUrl">[URL hasn’t been resolved yet]</kbd></p>
@@ -106,7 +127,13 @@ permalink: /404.html
 
       <script>
         function createRED(){
-            window.location.assign(window.location.protocol+"//"+window.location.hostname + window.location.pathname.substring(0,window.location.pathname.lastIndexOf("/"))+"?REDurl="+window.location.pathname.substring(window.location.pathname.lastIndexOf("/")+1).toLowerCase());
+        	if(!document.getElementById("register").classList.contains("disabled"))
+            	window.location.assign(window.location.protocol+"//"+window.location.hostname + window.location.pathname.substring(0,window.location.pathname.lastIndexOf("/"))+"?REDurl="+window.location.pathname.substring(window.location.pathname.lastIndexOf("/")+1).toLowerCase());
+        }
+        function more(){
+        	  document.getElementById("yesUrl").style.display = "block";
+              document.getElementById("logo").style.display = "block";
+              document.getElementById("content").style.display = "none";
         }
       </script>
 
