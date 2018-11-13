@@ -6,7 +6,6 @@ permalink: /404.html
   <head>
       <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase.js"></script>
 	  <script>
-
         firebase.initializeApp({apiKey: "AIzaSyBpAWpSB1sSjuV1qR8woZoamGVonMgYN_Y",authDomain: "red-irector.firebaseapp.com",databaseURL: "https://red-irector.firebaseio.com",projectId: "red-irector",storageBucket: "red-irector.appspot.com",messagingSenderId: "578371314492"});
         console.log(window.location.pathname.substring(window.location.pathname.lastIndexOf("/")+1));
         try{
@@ -14,7 +13,7 @@ permalink: /404.html
                 try {
                     var testURL = new URL(snapshot.val());
                     window.location.replace(testURL);
-                    if (document.readyState == "interactive") {
+                    if (document.readyState != "loading") {
                         var urlEle = document.getElementById("url");
                         var websiteUrlEle = document.getElementById("weburls");
                         urlEle.innerHTML = testURL;
@@ -24,7 +23,7 @@ permalink: /404.html
                     }else{
                     	document.onreadystatechange = function () {
                     		//Exact same code from above
-						    if (document.readyState == "interactive") {
+						    if (document.readyState != "loading") {
 								var urlEle = document.getElementById("url");
 								var websiteUrlEle = document.getElementById("weburls");
 								urlEle.innerHTML = testURL;
@@ -35,7 +34,7 @@ permalink: /404.html
 						}
                     }
                 }catch(error){
-                    if (document.readyState == "interactive") {
+                    if (document.readyState != "loading") {
                         if(snapshot.val()==undefined){
                             document.getElementById("noneUrl").style.display = "block";
                             document.getElementById("yesUrl").style.display = "none";
@@ -47,7 +46,7 @@ permalink: /404.html
                     }else{
 						document.onreadystatechange = function () {
 							//Exact same code from above
-							if (document.readyState == "interactive") {
+							if (document.readyState != "loading") {
 								if(snapshot.val()==undefined){
 									document.getElementById("noneUrl").style.display = "block";
 									document.getElementById("yesUrl").style.display = "none";
