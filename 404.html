@@ -23,8 +23,8 @@ permalink: /404.html
                         websiteUrlEle.innerHTML = websiteUrlEle.hostname;
                         setTimeout(function(){
                         	document.getElementById("yesUrl").style.display = "block"
+                        	document.getElementById("logo").style.display = "block";
                         },500);
-                        document.getElementById("logo").style.display = "block";
                         document.getElementById("content").style.display = "none";
                     }else{
                     	document.onreadystatechange = function () {
@@ -36,8 +36,10 @@ permalink: /404.html
 								urlEle.setAttribute("href", testURL);
 								websiteUrlEle.setAttribute("href", testURL);
 								websiteUrlEle.innerHTML = websiteUrlEle.hostname;
-								document.getElementById("yesUrl").style.display = "block";
-								document.getElementById("logo").style.display = "block";
+								setTimeout(function(){
+									document.getElementById("yesUrl").style.display = "block"
+									document.getElementById("logo").style.display = "block";
+								},500);
 								document.getElementById("content").style.display = "none";
 						    }
 						}
