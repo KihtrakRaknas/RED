@@ -105,7 +105,7 @@ btnActiveLogin.addEventListener("click", ()=>{
     if(btnLogin.style.display!="block"){
         var pad = 50;
         var loop = setInterval(function(){pad--;signInFormForm.style.paddingTop = pad+"px";}, 7);
-        
+
         $("#signInForm").slideUp(function(){
             btnLogin.style.display = "block";
             btnSignUp.style.display = "none";
@@ -121,7 +121,7 @@ btnActiveLogin.addEventListener("click", ()=>{
         btnSignUpWithGoogle.style.display = "none";
         $("#signInForm").slideDown();
     }
-    
+
 });
 
 btnActiveSignUp.addEventListener("click", ()=>{
@@ -174,7 +174,7 @@ $(document).ready(function() {
     }
     if((currentPage.hostname + currentPage.pathname).includes("index.html"))
         txtREDurl.placeholder = "REDurl: The text after " + (currentPage.hostname + currentPage.pathname).substring(0,(currentPage.hostname + currentPage.pathname).indexOf("index.html"));
-    else   
+    else
         txtREDurl.placeholder = "REDurl: The text after " + (currentPage.hostname + currentPage.pathname);
 });
 
@@ -246,7 +246,7 @@ function addPara(para1, para2){
         if(window.location.search.substring(1).split("&")[i].split("=")[0]==para1){
             if(tempurl== "")
                 tempurl += window.location.search.substring(1).split("&")[i].split("=")[0]+"="+para2;
-            else   
+            else
                 tempurl += "&"+window.location.search.substring(1).split("&")[i].split("=")[0]+"="+para2;
             found = true;
             console.log(tempurl+"1");
@@ -264,7 +264,7 @@ function addPara(para1, para2){
     if(!found){
         if(window.location.search.substring(1).length >0)
             tempurl += "&"+para1+"="+para2;
-        else   
+        else
             tempurl += para1+"="+para2;
     }
     history.replaceState( {} , 'foo', "?"+tempurl );
@@ -275,7 +275,7 @@ function recaper(){
         addPara("url",txtWebsite.value);
     if(txtREDurl.value)
         addPara("REDurl",txtREDurl.value);
-    
+
         if(validURL&&validRED){
         var str = new URL("http://example.com/"+txtREDurl.value).pathname.substring(1).toLowerCase();
          try{
@@ -283,10 +283,10 @@ function recaper(){
             firebase.database().ref(str+"/user").once('value').then(function(snapshot) {
                 if(snapshot.val()==null||snapshot.val()==userID){
                     $("#invalidREDurl").slideUp();
-        
+
                     if((currentPage.protocol+"//"+currentPage.hostname + currentPage.pathname).includes("index.html"))
                         REDlink = (currentPage.protocol+"//"+currentPage.hostname + currentPage.pathname).substring(0,(currentPage.protocol+"//"+currentPage.hostname + currentPage.pathname).indexOf("index.html"))+str;
-                    else   
+                    else
                         REDlink = (currentPage.protocol+"//"+currentPage.hostname + currentPage.pathname)+str;
                     URLlink = new URL(txtWebsite.value).href;
                     recapREDLink.innerHTML = REDlink;
@@ -321,10 +321,10 @@ btnRegister.addEventListener("click", ()=>{
             firebase.database().ref(str+"/user").once('value').then(function(snapshot) {
                 if(snapshot.val()==null||snapshot.val()==userID){
                     $("#invalidREDurl").slideUp();
-        
+
                     if((currentPage.protocol+"//"+currentPage.hostname + currentPage.pathname).includes("index.html"))
                         REDlink = (currentPage.protocol+"//"+currentPage.hostname + currentPage.pathname).substring(0,(currentPage.protocol+"//"+currentPage.hostname + currentPage.pathname).indexOf("index.html"))+str;
-                    else   
+                    else
                         REDlink = (currentPage.protocol+"//"+currentPage.hostname + currentPage.pathname)+str;
                     URLlink = new URL(txtWebsite.value).href;
                     recapREDLink.innerHTML = REDlink;
@@ -346,6 +346,7 @@ btnRegister.addEventListener("click", ()=>{
                                 successREDurl.href = REDlink;
                                 successURL.innerHTML = URLlink;
                                 tinyurlREDlink.value = REDlink;
+                                new QRCode(document.getElementById("qrcode"), URLlink);
                             }
                         });
 
@@ -355,7 +356,7 @@ btnRegister.addEventListener("click", ()=>{
                         else
                             $("#signInBeforeRegistering").slideDown();
                     }
-                    
+
                 }else{
                     REDurlSuggestion.innerHTML = "The REDurl ("+str+") is taken";
                     $("#invalidREDurl").slideDown();
