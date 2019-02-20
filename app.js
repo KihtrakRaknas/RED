@@ -346,7 +346,7 @@ btnRegister.addEventListener("click", ()=>{
                                 successREDurl.href = REDlink;
                                 successURL.innerHTML = URLlink;
                                 tinyurlREDlink.value = REDlink;
-                                new QRCode(document.getElementById("qrcode"), URLlink);
+                                new QRCode(document.getElementById("qrcode"), REDlink);
                             }
                         });
 
