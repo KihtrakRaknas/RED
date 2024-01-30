@@ -48,25 +48,18 @@ btnSignUp.addEventListener("click", ()=>{
 });
 
 var provider = new firebase.auth.GoogleAuthProvider();
-btnSignUpWithGoogle.addEventListener("click", ()=>{
-    firebase.auth().signInWithRedirect(provider),
-    firebase.auth().getRedirectResult().then().catch(function(pro) {
+function handleSignInWGoogleBtn(){
+    firebase.auth().signInWithPopup(provider).catch(function(pro) {
         console.log(pro),
         $(document).ready(function() {
             $("#logFailedAlert").slideDown().delay("100").slideUp()
         })
     })
-});
+}
 
-btnSignUpWithGoogle2.addEventListener("click", ()=>{
-    firebase.auth().signInWithRedirect(provider),
-    firebase.auth().getRedirectResult().then().catch(function(pro) {
-        console.log(pro),
-        $(document).ready(function() {
-            $("#logFailedAlert").slideDown().delay("100").slideUp()
-        })
-    })
-});
+btnSignUpWithGoogle.addEventListener("click", handleSignInWGoogleBtn);
+btnSignUpWithGoogle2.addEventListener("click", handleSignInWGoogleBtn);
+
 var signedIn = false;
 var userID = "";
 firebase.auth().onAuthStateChanged(function(user) {
